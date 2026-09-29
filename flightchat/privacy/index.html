@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="canonical" href="https://thenez.github.io/flightchat/privacy/">
+<title>FlightChat Privacy Policy</title>
+<meta name="description" content="FlightChat collects no data. Messages travel only between nearby phones in your group.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; }
+
+  /* Layout: one readable column; a boarding-pass summary up top, then plain sections. */
+  :root {
+    --bg: #f2f4fa;
+    --surface: #ffffff;
+    --fg: #151a33;
+    --muted: #596079;
+    --line: #d9deec;
+    --accent: #4a3ed4;
+    --sunset: #e85a4f;
+    --mark: #fff1c2;
+    --font-display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+    --font-body: "Atkinson Hyperlegible", "Helvetica Neue", Arial, system-ui, sans-serif;
+    --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+    --step-0: 1.0625rem;
+    --step-1: 1.3rem;
+    --step-2: 1.7rem;
+    --step-3: clamp(2.1rem, 6vw, 3rem);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0c1023; --surface: #151a33; --fg: #e8ebf7; --muted: #9ba3c0;
+      --line: #272d4b; --accent: #a39bff; --sunset: #ff8b7c; --mark: #4a3f14;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0c1023; --surface: #151a33; --fg: #e8ebf7; --muted: #9ba3c0;
+    --line: #272d4b; --accent: #a39bff; --sunset: #ff8b7c; --mark: #4a3f14;
+    color-scheme: dark;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-body);
+    font-size: var(--step-0);
+    line-height: 1.65;
+    padding-inline: 16px;
+    padding-block: 0;
+  }
+  .page {
+    max-width: 44rem;
+    margin: 0 auto;
+    padding-block: 48px 72px;
+    display: grid;
+    gap: 40px;
+  }
+
+  header { display: grid; gap: 10px; }
+  .wordmark {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--step-0);
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .wordmark svg { width: 22px; height: 22px; flex: none; }
+  h1 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--step-3);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin: 0;
+    text-wrap: balance;
+  }
+  .effective { color: var(--muted); margin: 0; font-size: 0.95rem; }
+
+  /* Boarding-pass summary */
+  .pass {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    overflow: hidden;
+  }
+  .pass-main {
+    padding: 22px 24px;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px 16px;
+    min-width: 0;
+  }
+  .field { display: grid; gap: 2px; min-width: 0; }
+  .field-label {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .field-value {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--step-1);
+    line-height: 1.2;
+  }
+  .route { grid-column: 1 / -1; }
+  .route .field-value { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; }
+  .route .arrow { color: var(--sunset); }
+  .pass-stub {
+    border-left: 2px dashed var(--line);
+    padding: 22px 20px;
+    display: grid;
+    align-content: center;
+    justify-items: center;
+    gap: 4px;
+    text-align: center;
+    min-width: 7.5rem;
+  }
+  .stub-code {
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: 1.6rem;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+  }
+  @media (max-width: 560px) {
+    .pass { grid-template-columns: minmax(0, 1fr); }
+    .pass-main { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .pass-stub {
+      border-left: 0;
+      border-top: 2px dashed var(--line);
+      grid-auto-flow: column;
+      justify-content: space-between;
+      align-items: center;
+      min-width: 0;
+      padding-block: 14px;
+    }
+  }
+
+  main { display: grid; gap: 36px; }
+  section { display: grid; gap: 10px; }
+  h2 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--step-2);
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    margin: 0;
+    text-wrap: balance;
+  }
+  p, ul { margin: 0; }
+  ul { padding-left: 1.2em; display: grid; gap: 6px; }
+  li::marker { color: var(--accent); }
+  strong { font-weight: 700; }
+  a { color: var(--accent); text-underline-offset: 3px; }
+  a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px; }
+  .placeholder {
+    background: var(--mark);
+    color: inherit;
+    padding: 0 4px;
+    border-radius: 4px;
+    font-family: var(--font-mono);
+    font-size: 0.92em;
+  }
+  .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+  table { border-collapse: collapse; width: 100%; font-size: 0.97rem; }
+  th, td { text-align: left; vertical-align: top; padding: 12px 14px; border-bottom: 1px solid var(--line); }
+  tr:last-child td { border-bottom: 0; }
+  th {
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  footer { color: var(--muted); font-size: 0.9rem; border-top: 1px solid var(--line); padding-top: 20px; }
+</style>
+</head>
+<body>
+<div class="page">
+  <header>
+    <div class="wordmark">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg>
+      FlightChat
+    </div>
+    <h1>Privacy Policy</h1>
+    <p class="effective">Effective September 29, 2026</p>
+  </header>
+
+  <div class="pass" role="group" aria-label="Summary">
+    <div class="pass-main">
+      <div class="field">
+        <span class="field-label">Data collected</span>
+        <span class="field-value">None</span>
+      </div>
+      <div class="field">
+        <span class="field-label">Our servers</span>
+        <span class="field-value">None</span>
+      </div>
+      <div class="field">
+        <span class="field-label">Ads &amp; tracking</span>
+        <span class="field-value">None</span>
+      </div>
+      <div class="field route">
+        <span class="field-label">Your messages travel</span>
+        <span class="field-value">Your phone <span class="arrow" aria-label="to">→</span> your group, nearby</span>
+      </div>
+    </div>
+    <div class="pass-stub">
+      <span class="field-label">Account</span>
+      <span class="stub-code">NONE</span>
+    </div>
+  </div>
+
+  <main>
+    <section>
+      <h2>The short version</h2>
+      <p>FlightChat lets people traveling together, like families, friends or school groups, message each other when there's no internet, by connecting their iPhones directly. We don't run servers, we don't have accounts, and we can't see your messages, photos or anything else you do in the app. Everything stays on your phone and the phones in your group. The only exception is a report you choose to email us (see "Blocking and reporting" below).</p>
+    </section>
+
+    <section>
+      <h2>What stays on your phone</h2>
+      <p>FlightChat stores the following only on your iPhone, inside the app:</p>
+      <ul>
+        <li>The name and group code you enter</li>
+        <li>A random ID created when you first set up the app, used to tell group members apart</li>
+        <li>Your messages, reactions and delivery receipts</li>
+        <li>Photos, videos, GIFs and files you send or receive</li>
+      </ul>
+      <p>None of this is sent to us or to any third party.</p>
+    </section>
+
+    <section>
+      <h2>What nearby phones can see</h2>
+      <p>While FlightChat is open, your phone announces itself to other iPhones nearby that are running FlightChat, using Apple's peer-to-peer Wi-Fi and Bluetooth. That announcement includes:</p>
+      <ul>
+        <li>The name you entered</li>
+        <li>Your random ID</li>
+        <li>A short fingerprint of your group code. The code itself is never broadcast.</li>
+      </ul>
+      <p>Only phones with the same group code can connect to you. Other nearby FlightChat users may see your name in that announcement, but they can't connect, join your chats or read anything. When FlightChat is closed or in the background, your phone stops announcing itself.</p>
+    </section>
+
+    <section>
+      <h2>How messages are shared</h2>
+      <ul>
+        <li><strong>Group chat</strong> messages go to every connected phone with your group code.</li>
+        <li><strong>One-on-one</strong> messages go only to that person.</li>
+        <li>When two phones in your group reconnect, each sends the other any messages it missed, but only ones that person was meant to receive.</li>
+        <li>Connections between phones are encrypted using Apple's built-in MultipeerConnectivity encryption.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Blocking and reporting</h2>
+      <p>Blocking someone is handled entirely on your phone. Your phone stops sending them anything and hides their messages. They aren't told.</p>
+      <p>If you tap <strong>Report and Block</strong>, your email app opens with a report addressed to us at biomass-65-jumbo@icloud.com. It contains:</p>
+      <ul>
+        <li>The reported person's name and random ID</li>
+        <li>Your name and random ID</li>
+        <li>The message you reported, if you reported one from a chat</li>
+      </ul>
+      <p>Nothing is sent unless you tap Send in your email app, and you can edit the report first. We use reports only to look into abuse, and we delete them once they're resolved.</p>
+    </section>
+
+    <section>
+      <h2>What we never collect</h2>
+      <p>No analytics or advertising code runs in FlightChat. The app doesn't collect your location, contacts, phone number, email address, advertising identifier or device information, and it doesn't track you across other apps or websites.</p>
+      <p>If you've chosen to share analytics with app developers in your iPhone's settings, Apple may send us anonymous crash reports and usage statistics. We use these only to fix bugs. You can turn this off under <strong>Settings → Privacy &amp; Security → Analytics &amp; Improvements</strong>.</p>
+    </section>
+
+    <section>
+      <h2>Permissions the app asks for</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th scope="col">Permission</th><th scope="col">Why</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Local Network</td><td>Required to find and connect to your group's phones nearby.</td></tr>
+            <tr><td>Photos (picker)</td><td>FlightChat uses Apple's photo picker, which gives the app only the photos and videos you choose. It can't browse your library.</td></tr>
+            <tr><td>Add to Photos</td><td>Used only when you choose to save a photo or video someone sent you.</td></tr>
+            <tr><td>Files (picker)</td><td>Used only for files you pick to send.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <h2>Backups</h2>
+      <p>Your chat history is saved in the app's storage on your iPhone. If you back up your iPhone to iCloud or a computer, iOS includes that storage in the backup. Apple's privacy policy covers those backups.</p>
+    </section>
+
+    <section>
+      <h2>Deleting your data</h2>
+      <ul>
+        <li>To erase all messages and media on your phone, tap the gear icon, then <strong>Clear Chat History</strong>.</li>
+        <li>Deleting the app removes everything it stored on your phone.</li>
+        <li>Messages you've sent remain on the phones of group members who received them until they delete them.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Children</h2>
+      <p>FlightChat is made for groups of all ages, including families with children. We don't collect personal information from anyone, including children under 13. The group code controls who a child can talk to: only phones set up with the same code can connect.</p>
+    </section>
+
+    <section>
+      <h2>Changes to this policy</h2>
+      <p>If we change how FlightChat handles your information, we'll update this page and the date at the top. Any change that affects your data will also be described in the app's release notes.</p>
+    </section>
+
+    <section>
+      <h2>Contact</h2>
+      <p>FlightChat is made by Roni Biran. Questions about privacy, or want to report abuse? Email <a href="mailto:biomass-65-jumbo@icloud.com">biomass-65-jumbo@icloud.com</a>.</p>
+    </section>
+  </main>
+
+  <footer>© 2026 Roni Biran</footer>
+</div>
+</body>
+</html>
