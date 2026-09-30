@@ -189,6 +189,16 @@
   ol li::marker { color: var(--accent); font-weight: 700; }
   h3 { font-family: var(--font-display); font-weight: 700; font-size: var(--step-1); margin: 8px 0 0; }
   kbd { font-family: var(--font-mono); font-size: 0.9em; background: var(--surface); border: 1px solid var(--line); border-radius: 5px; padding: 0 5px; }
+  /* Screenshots: two across on phones, three on wider screens, captions underneath. */
+  .shots { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 6px; }
+  @media (min-width: 600px) { .shots { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  .shots figure { margin: 0; min-width: 0; display: grid; gap: 8px; align-content: start; }
+  .shots img {
+    width: 100%; height: auto; display: block;
+    border-radius: 20px; border: 1px solid var(--line); background: var(--surface);
+    box-shadow: 0 8px 22px rgb(21 26 51 / 0.10);
+  }
+  .shots figcaption { font-size: 0.85rem; line-height: 1.4; color: var(--muted); text-align: center; }
 </style>
 </head>
 <body>
@@ -248,6 +258,12 @@
         <li>Open FlightChat. The top of the chat list shows who's connected.</li>
       </ol>
       <p>Phones only connect while FlightChat is open. When you come back to the app, phones reconnect by themselves and catch up on anything they missed.</p>
+      <div class="shots">
+        <figure>
+          <img src="help-chats.jpg" width="600" height="1303" alt="The FlightChat chat list: a status card at the top, then two groups, Cohen family and Beach trip, and a People section listing Mom, Dad, Maya and Noa." loading="lazy">
+          <figcaption>The chat list: who's connected, your groups, and the people in them</figcaption>
+        </figure>
+      </div>
     </section>
 
     <section>
@@ -264,23 +280,60 @@
       <h3>Rename, share or leave a group</h3>
       <p>Open the group's chat, tap <strong>⋯</strong>, then <strong>Group Info</strong>. There you can change what the group is called on your phone, see and share its code, see its members, or leave it. Leaving a group deletes its messages and media from your phone.</p>
       <p><strong>Keep codes private.</strong> Anyone with the code can join the group and read its chat.</p>
+      <div class="shots">
+        <figure>
+          <img src="help-create.jpg" width="600" height="1303" alt="The New Group screen with a made-up code, a Share Code button and an optional name." loading="lazy">
+          <figcaption>Create: a code is made up for you</figcaption>
+        </figure>
+        <figure>
+          <img src="help-join.jpg" width="600" height="1303" alt="The Join Group screen with a group code typed in." loading="lazy">
+          <figcaption>Join: type the code you were given</figcaption>
+        </figure>
+        <figure>
+          <img src="help-group-info.jpg" width="600" height="1303" alt="Group Info showing the group's name, its code with Share Code, the members Dad, Mom and Noa, and Leave Group." loading="lazy">
+          <figcaption>Group Info: name, code, members and Leave</figcaption>
+        </figure>
+      </div>
+
     </section>
 
     <section>
       <h2>Chatting</h2>
       <ul>
-        <li><strong>Group and 1-on-1 chats:</strong> each group has its own chat. To message one person privately, tap their name under <strong>People</strong>.</li>
+        <li><strong>Group and 1-on-1 chats:</strong> each group has its own chat. <strong>People</strong> lists everyone you share a group with. To message one person privately, tap their name there.</li>
         <li><strong>Photos, videos, GIFs and files:</strong> tap <strong>+</strong> next to the message box. Tap the smiley face for stickers and GIFs.</li>
         <li><strong>Reactions:</strong> touch and hold a message, then pick an emoji. You can copy text from there too.</li>
         <li><strong>Full screen:</strong> tap a photo or video. Turn your phone sideways to see it larger. Use the share button to save it.</li>
         <li><strong>Ticks:</strong> <kbd>✓</kbd> means the message is saved and sent to whoever is connected. <kbd>✓✓</kbd> means everyone it's for has it.</li>
         <li><strong>Not nearby?</strong> Messages to people who aren't connected are sent when you reconnect.</li>
       </ul>
+      <div class="shots">
+        <figure>
+          <img src="help-group-chat.jpg" width="600" height="1303" alt="A group chat with messages from Dad, Noa and Mom, a Wheels up! sticker, a photo of clouds from the window with reactions, and double ticks." loading="lazy">
+          <figcaption>A group chat with a sticker, a photo and reactions</figcaption>
+        </figure>
+        <figure>
+          <img src="help-reactions.jpg" width="600" height="1303" alt="Holding a message shows a row of emoji to react with and a copy button." loading="lazy">
+          <figcaption>Touch and hold a message to react</figcaption>
+        </figure>
+        <figure>
+          <img src="help-attach.jpg" width="600" height="1303" alt="The + menu with File, GIFs &amp; Stickers, and Photo, Video or GIF." loading="lazy">
+          <figcaption>+ sends photos, videos, GIFs, stickers and files</figcaption>
+        </figure>
+      </div>
+
     </section>
 
     <section>
       <h2>Export a chat</h2>
       <p>Open the chat, tap <strong>⋯</strong>, then <strong>Export Chat</strong>. FlightChat makes a ZIP file with the conversation as text and the photos, videos and files that are on your phone. Save it to Files, AirDrop it, or email it once you're back online.</p>
+      <div class="shots">
+        <figure>
+          <img src="help-chat-menu.jpg" width="600" height="1303" alt="The ⋯ menu in a group chat with Group Info and Export Chat." loading="lazy">
+          <figcaption>⋯ opens Group Info and Export Chat</figcaption>
+        </figure>
+      </div>
+
     </section>
 
     <section>
@@ -304,6 +357,7 @@
         <li>Check that you're in the same group: open the group chat, tap <strong>⋯</strong>, then <strong>Group Info</strong>, and compare codes.</li>
         <li>In the iPhone Settings app, open <strong>FlightChat</strong> and make sure <strong>Local Network</strong> is on.</li>
         <li>Move closer together. Phones a few rows apart usually connect; the far end of a big plane may not.</li>
+        <li>Just joined a group? Phones already in it find you within a few seconds.</li>
         <li>Up to 8 phones can be connected to each other at once, including yours.</li>
       </ul>
     </section>
