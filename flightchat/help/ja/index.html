@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="ja" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="canonical" href="https://thenez.github.io/flightchat/help/ja/">
+<title>FlightChat ヘルプ</title>
+<meta name="description" content="FlightChatの使い方：出発前の準備、機内でのインターネットなしのチャット、グループの管理、チャットの書き出し、接続のトラブル対処。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; }
+
+  /* Layout: one readable column; a boarding-pass summary up top, then plain sections. */
+  :root {
+    --bg: #f2f4fa;
+    --surface: #ffffff;
+    --fg: #151a33;
+    --muted: #596079;
+    --line: #d9deec;
+    --accent: #4a3ed4;
+    --sunset: #e85a4f;
+    --mark: #fff1c2;
+    --font-display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+    --font-body: "Atkinson Hyperlegible", "Helvetica Neue", Arial, system-ui, sans-serif;
+    --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+    --step-0: 1.0625rem;
+    --step-1: 1.3rem;
+    --step-2: 1.7rem;
+    --step-3: clamp(2.1rem, 6vw, 3rem);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0c1023; --surface: #151a33; --fg: #e8ebf7; --muted: #9ba3c0;
+      --line: #272d4b; --accent: #a39bff; --sunset: #ff8b7c; --mark: #4a3f14;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0c1023; --surface: #151a33; --fg: #e8ebf7; --muted: #9ba3c0;
+    --line: #272d4b; --accent: #a39bff; --sunset: #ff8b7c; --mark: #4a3f14;
+    color-scheme: dark;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-body);
+    font-size: var(--step-0);
+    line-height: 1.65;
+    padding-inline: 16px;
+    padding-block: 0;
+  }
+  .page {
+    max-width: 44rem;
+    margin: 0 auto;
+    padding-block: 48px 72px;
+    display: grid;
+    gap: 40px;
+  }
+
+  header { display: grid; gap: 10px; }
+  .wordmark {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--step-0);
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .wordmark svg { width: 22px; height: 22px; flex: none; }
+  h1 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--step-3);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin: 0;
+    text-wrap: balance;
+  }
+  .effective { color: var(--muted); margin: 0; font-size: 0.95rem; }
+
+  /* Boarding-pass summary */
+  .pass {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    overflow: hidden;
+  }
+  .pass-main {
+    padding: 22px 24px;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px 16px;
+    min-width: 0;
+  }
+  .field { display: grid; gap: 2px; min-width: 0; }
+  .field-label {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .field-value {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--step-1);
+    line-height: 1.2;
+  }
+  .route { grid-column: 1 / -1; }
+  .route .field-value { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; }
+  .route .arrow { color: var(--sunset); }
+  .pass-stub {
+    border-inline-start: 2px dashed var(--line);
+    padding: 22px 20px;
+    display: grid;
+    align-content: center;
+    justify-items: center;
+    gap: 4px;
+    text-align: center;
+    min-width: 7.5rem;
+  }
+  .stub-code {
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: 1.6rem;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+  }
+  @media (max-width: 560px) {
+    .pass { grid-template-columns: minmax(0, 1fr); }
+    .pass-main { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .pass-stub {
+      border-inline-start: 0;
+      border-top: 2px dashed var(--line);
+      grid-auto-flow: column;
+      justify-content: space-between;
+      align-items: center;
+      min-width: 0;
+      padding-block: 14px;
+    }
+  }
+
+  main { display: grid; gap: 36px; }
+  section { display: grid; gap: 10px; }
+  h2 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--step-2);
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    margin: 0;
+    text-wrap: balance;
+  }
+  p, ul { margin: 0; }
+  ul { padding-inline-start: 1.2em; display: grid; gap: 6px; }
+  li::marker { color: var(--accent); }
+  strong { font-weight: 700; }
+  a { color: var(--accent); text-underline-offset: 3px; }
+  a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px; }
+  .placeholder {
+    background: var(--mark);
+    color: inherit;
+    padding: 0 4px;
+    border-radius: 4px;
+    font-family: var(--font-mono);
+    font-size: 0.92em;
+  }
+  .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+  table { border-collapse: collapse; width: 100%; font-size: 0.97rem; }
+  th, td { text-align: start; vertical-align: top; padding: 12px 14px; border-bottom: 1px solid var(--line); }
+  tr:last-child td { border-bottom: 0; }
+  th {
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  footer { color: var(--muted); font-size: 0.9rem; border-top: 1px solid var(--line); padding-top: 20px; }
+  ol { margin: 0; padding-inline-start: 1.4em; display: grid; gap: 6px; }
+  ol li::marker { color: var(--accent); font-weight: 700; }
+  h3 { font-family: var(--font-display); font-weight: 700; font-size: var(--step-1); margin: 8px 0 0; }
+  kbd { font-family: var(--font-mono); font-size: 0.9em; background: var(--surface); border: 1px solid var(--line); border-radius: 5px; padding: 0 5px; }
+  /* Screenshots: two across on phones, three on wider screens, captions underneath. */
+  .shots { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 6px; }
+  @media (min-width: 600px) { .shots { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  .shots figure { margin: 0; min-width: 0; display: grid; gap: 8px; align-content: start; }
+  .shots img {
+    width: 100%; height: auto; display: block;
+    border-radius: 20px; border: 1px solid var(--line); background: var(--surface);
+    box-shadow: 0 8px 22px rgb(21 26 51 / 0.10);
+  }
+  .shots figcaption { font-size: 0.85rem; line-height: 1.4; color: var(--muted); text-align: center; }
+  .languages { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 0.9rem; }
+  .languages a { color: var(--muted); text-decoration: none; }
+  .languages a[aria-current="page"] { color: var(--accent); font-weight: 700; }
+</style>
+</head>
+<body>
+<div class="page">
+  <header>
+    <div class="wordmark">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg>
+      FlightChat
+    </div>
+    <h1>ヘルプ</h1>
+    <p class="effective">インターネットがなくてもグループとチャットする方法。</p>
+    <nav class="languages" aria-label="言語"><a href="https://thenez.github.io/flightchat/help/" lang="en">English</a> <a href="https://thenez.github.io/flightchat/help/fr/" lang="fr">Français</a> <a href="https://thenez.github.io/flightchat/help/es/" lang="es">Español</a> <a href="https://thenez.github.io/flightchat/help/zh-Hans/" lang="zh-Hans">简体中文</a> <a href="https://thenez.github.io/flightchat/help/ja/" lang="ja" aria-current="page">日本語</a> <a href="https://thenez.github.io/flightchat/help/he/" lang="he">עברית</a> <a href="https://thenez.github.io/flightchat/help/ko/" lang="ko">한국어</a> <a href="https://thenez.github.io/flightchat/help/ar/" lang="ar">العربية</a></nav>
+  </header>
+
+  <div class="pass" role="group" aria-label="概要">
+    <div class="pass-main">
+      <div class="field">
+        <span class="field-label">インターネット</span>
+        <span class="field-value">不要</span>
+      </div>
+      <div class="field">
+        <span class="field-label">通信範囲</span>
+        <span class="field-value">同じ機内</span>
+      </div>
+      <div class="field">
+        <span class="field-label">グループ</span>
+        <span class="field-value">最大 10</span>
+      </div>
+      <div class="field route">
+        <span class="field-label">機内で</span>
+        <span class="field-value">機内モード <span class="arrow" aria-label="次に">→</span> Wi-FiとBluetoothをオン <span class="arrow" aria-label="次に">→</span> FlightChatを開く</span>
+      </div>
+    </div>
+    <div class="pass-stub">
+      <span class="field-label">搭乗口</span>
+      <span class="stub-code">ヘルプ</span>
+    </div>
+  </div>
+
+  <main>
+    <section>
+      <h2>出発前に</h2>
+      <p>家や搭乗口で、みんな一緒にいるうちに準備しておきましょう：</p>
+      <ol>
+        <li>グループ全員のiPhoneにFlightChatをインストールします。</li>
+        <li>1人がグループを作成し、コードをほかの人に共有します（メッセージなどで）。</li>
+        <li>ほかの全員がそのコードでグループに参加します。</li>
+        <li>テストメッセージを送って、全員に届くか確認します。</li>
+      </ol>
+      <p>初めてFlightChatを開いたら、ローカルネットワーク上のデバイスの検索を許可してください。許可しないとグループを見つけられません。</p>
+    </section>
+
+    <section>
+      <h2>機内で</h2>
+      <ol>
+        <li>いつもどおり<strong>機内モード</strong>をオンにします。</li>
+        <li>コントロールセンターを開いて、<strong>Wi-Fi</strong>と<strong>Bluetooth</strong>をオンに戻します。ネットワークに接続する必要はありません。</li>
+        <li>FlightChatを開きます。チャット一覧の上部に接続中の人が表示されます。</li>
+      </ol>
+      <p>FlightChatを開いている間だけ接続されます。アプリに戻ると自動的に再接続し、見逃した内容を受け取ります。</p>
+      <div class="shots">
+        <figure>
+          <img src="../help-chats.ja.jpg" width="600" height="1303" alt="FlightChatのチャット一覧：上部に状態カード、その下に Family と Beach trip の2つのグループ、Mom、Dad、Sam、Mia が並ぶメンバー欄。" loading="lazy">
+          <figcaption>チャット一覧：接続中の人、グループ、メンバー</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section>
+      <h2>グループ</h2>
+      <p>グループとは、同じコードを入力した全員が使える共有チャットです。家族用と同じ便の友だち用など、最大10個のグループに同時に参加し、すべてとつながっていられます。</p>
+      <h3>グループを作成する</h3>
+      <ol>
+        <li>チャット一覧で <strong>+</strong> をタップし、<strong>作成</strong>をタップします。</li>
+        <li>FlightChatが推測されにくいコードを作成します。必要ならグループに名前を付けます。</li>
+        <li><strong>コードを共有</strong>をタップしてほかの人に送り、<strong>作成</strong>をタップします。あとから「グループ情報」で共有することもできます。</li>
+      </ol>
+      <h3>グループに参加する</h3>
+      <p><strong>+</strong> をタップしてから<strong>参加</strong>をタップし、受け取ったコードを入力します。大文字と小文字は区別されません。</p>
+      <h3>グループの名前変更・共有・退出</h3>
+      <p>グループのチャットを開き、<strong>⋯</strong> をタップしてから<strong>グループ情報</strong>をタップします。このiPhoneでのグループ名の変更、コードの確認と共有、メンバーの確認、退出ができます。退出すると、そのグループのメッセージとメディアがこのiPhoneから削除されます。</p>
+      <p><strong>コードは秘密にしてください。</strong>コードを知っている人は誰でもグループに参加してチャットを読めます。</p>
+      <div class="shots">
+        <figure>
+          <img src="../help-create.ja.jpg" width="600" height="1303" alt="「新規グループ」画面。作成されたコード、「コードを共有」ボタン、任意の名前。" loading="lazy">
+          <figcaption>作成：コードが自動で作られます</figcaption>
+        </figure>
+        <figure>
+          <img src="../help-join.ja.jpg" width="600" height="1303" alt="「グループに参加」画面。グループコードが入力されています。" loading="lazy">
+          <figcaption>参加：受け取ったコードを入力</figcaption>
+        </figure>
+        <figure>
+          <img src="../help-group-info.ja.jpg" width="600" height="1303" alt="グループ情報。グループ名、「コードを共有」付きのコード、メンバーの Dad、Mom、Mia、「グループから退出」。" loading="lazy">
+          <figcaption>グループ情報：名前、コード、メンバー、退出</figcaption>
+        </figure>
+      </div>
+
+    </section>
+
+    <section>
+      <h2>チャット</h2>
+      <ul>
+        <li><strong>グループチャットと個別チャット：</strong>グループごとにチャットがあります。<strong>メンバー</strong>には、同じグループにいる全員が表示されます。個別にメッセージを送るには、その人の名前をタップします。</li>
+        <li><strong>写真、ビデオ、GIF、ファイル：</strong>メッセージ欄の横の <strong>+</strong> をタップします。<strong>写真またはビデオを撮る</strong>でカメラを使う（ビデオは最長2分）か、手元のものを選びます。スマイルマークをタップするとステッカーやGIFを送れます。</li>
+        <li><strong>リアクション：</strong>メッセージを長押しして絵文字を選びます。そこからテキストをコピーすることもできます。</li>
+        <li><strong>全画面：</strong>写真やビデオをタップします。iPhoneを横にすると大きく表示されます。共有ボタンで保存できます。</li>
+        <li><strong>チェックマーク：</strong><kbd>✓</kbd> はメッセージが保存され、接続中の人に送信されたことを示します。<kbd>✓✓</kbd> は宛先の全員に届いたことを示します。</li>
+        <li><strong>近くにいない場合：</strong>接続していない人へのメッセージは、再接続したときに送信されます。</li>
+      </ul>
+      <div class="shots">
+        <figure>
+          <img src="../help-group-chat.ja.jpg" width="600" height="1303" alt="Dad、Mia、Mom のメッセージ、Wheels up! ステッカー、窓から撮った雲の写真とリアクション、ダブルチェックがあるグループチャット。" loading="lazy">
+          <figcaption>ステッカー、写真、リアクションのあるグループチャット</figcaption>
+        </figure>
+        <figure>
+          <img src="../help-reactions.ja.jpg" width="600" height="1303" alt="メッセージを長押しすると、リアクション用の絵文字とコピーボタンが表示されます。" loading="lazy">
+          <figcaption>メッセージを長押ししてリアクション</figcaption>
+        </figure>
+        <figure>
+          <img src="../help-attach.ja.jpg" width="600" height="1303" alt="+ メニュー。「写真またはビデオを撮る」「写真、ビデオ、GIF」「GIFとステッカー」「ファイル」。" loading="lazy">
+          <figcaption>+ で写真、ビデオ、GIF、ステッカー、ファイルを送信</figcaption>
+        </figure>
+      </div>
+
+    </section>
+
+    <section>
+      <h2>チャットを書き出す</h2>
+      <p>チャットを開き、<strong>⋯</strong> をタップしてから<strong>チャットを書き出す</strong>をタップします。会話のテキストと、このiPhoneにある写真・ビデオ・ファイルを含むZIPファイルが作られます。「ファイル」に保存したり、AirDropで送ったり、オンラインに戻ってからメールで送ったりできます。</p>
+      <div class="shots">
+        <figure>
+          <img src="../help-chat-menu.ja.jpg" width="600" height="1303" alt="グループチャットの ⋯ メニュー。「グループ情報」と「チャットを書き出す」。" loading="lazy">
+          <figcaption>⋯ で「グループ情報」と「チャットを書き出す」</figcaption>
+        </figure>
+      </div>
+
+    </section>
+
+    <section>
+      <h2>ブロックと報告</h2>
+      <ul>
+        <li><strong>個別チャットで：</strong><strong>⋯</strong> をタップしてから<strong>ブロックまたは報告</strong>をタップします。</li>
+        <li><strong>グループチャットで：</strong>相手のメッセージを長押しして、手のアイコンをタップします。</li>
+        <li>相手のメッセージが表示されなくなり、相手もあなたにメッセージを送れなくなります。相手には通知されません。</li>
+        <li><strong>報告してブロック</strong>を選ぶと、報告がメールで私たちに届きます。24時間以内に返信します。</li>
+        <li>ブロックの解除は<strong>設定 → ブロック中の人</strong>で行います。</li>
+      </ul>
+      <p>ブロックした相手がグループコードを知っていれば、グループチャットを読むことはできます。完全に外すには、ほかのメンバーと新しいグループを作り、古いグループから退出してください。</p>
+      <p>機内で身の危険を感じたら、すぐに客室乗務員に伝えてください。</p>
+    </section>
+
+    <section>
+      <h2>接続できないとき</h2>
+      <ul>
+        <li>コントロールセンターで<strong>Wi-Fi</strong>と<strong>Bluetooth</strong>が両方オンになっているか確認します。機内モードにするとオフになります。</li>
+        <li>両方のiPhoneでFlightChatを開いたままにします。</li>
+        <li>同じグループにいるか確認します：グループチャットを開き、<strong>⋯</strong> をタップしてから<strong>グループ情報</strong>をタップし、コードを見比べます。</li>
+        <li>iPhoneの設定アプリで<strong>FlightChat</strong>を開き、<strong>ローカルネットワーク</strong>がオンになっているか確認します。</li>
+        <li>近くに移動してください。数列離れた程度なら通常は接続できますが、大型機の端と端では届かないことがあります。</li>
+        <li>グループに参加したばかりですか？すでに参加しているiPhoneが数秒であなたを見つけます。</li>
+        <li>同時に接続できるのは、あなたのiPhoneを含めて最大8台です。</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>言語</h2>
+      <p>FlightChatはiPhoneの言語（英語、フランス語、スペイン語、中国語、日本語、ヘブライ語、韓国語、アラビア語）で表示されます。ヘブライ語とアラビア語は右から左に表示されます。メッセージ、名前、ステッカーは送られたとおりに表示されます。FlightChatだけ言語を変えるには、チャット一覧の歯車をタップし、<strong>言語</strong>を選んで<strong>保存</strong>をタップし、FlightChatを閉じて開き直します。iPhoneの設定アプリの<strong>アプリ → FlightChat → 言語</strong>でも選べます。</p>
+    </section>
+
+    <section>
+      <h2>データについて</h2>
+      <p>メッセージはあなたのiPhoneとグループのiPhoneにだけ保存されます。アカウントもサーバもありません。すべて削除するには、<strong>設定</strong>を開いて<strong>チャット履歴を消去</strong>をタップします。詳しくは<a href="https://thenez.github.io/flightchat/privacy/">プライバシーポリシー</a>と<a href="https://thenez.github.io/flightchat/terms/">利用規約</a>（英語）をご覧ください。</p>
+    </section>
+
+    <section>
+      <h2>お問い合わせ</h2>
+      <p>うまく動かない、質問がある場合は、<a href="mailto:biomass-65-jumbo@icloud.com">biomass-65-jumbo@icloud.com</a> までメールでご連絡ください。</p>
+    </section>
+  </main>
+
+  <footer>© 2026 Roni Biran · <a href="https://thenez.github.io/flightchat/privacy/">プライバシーポリシー</a> · <a href="https://thenez.github.io/flightchat/terms/">利用規約</a></footer>
+</div>
+</body>
+</html>

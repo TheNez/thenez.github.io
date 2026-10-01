@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -117,7 +117,7 @@
   .route .field-value { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; }
   .route .arrow { color: var(--sunset); }
   .pass-stub {
-    border-left: 2px dashed var(--line);
+    border-inline-start: 2px dashed var(--line);
     padding: 22px 20px;
     display: grid;
     align-content: center;
@@ -137,7 +137,7 @@
     .pass { grid-template-columns: minmax(0, 1fr); }
     .pass-main { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .pass-stub {
-      border-left: 0;
+      border-inline-start: 0;
       border-top: 2px dashed var(--line);
       grid-auto-flow: column;
       justify-content: space-between;
@@ -159,7 +159,7 @@
     text-wrap: balance;
   }
   p, ul { margin: 0; }
-  ul { padding-left: 1.2em; display: grid; gap: 6px; }
+  ul { padding-inline-start: 1.2em; display: grid; gap: 6px; }
   li::marker { color: var(--accent); }
   strong { font-weight: 700; }
   a { color: var(--accent); text-underline-offset: 3px; }
@@ -174,7 +174,7 @@
   }
   .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
   table { border-collapse: collapse; width: 100%; font-size: 0.97rem; }
-  th, td { text-align: left; vertical-align: top; padding: 12px 14px; border-bottom: 1px solid var(--line); }
+  th, td { text-align: start; vertical-align: top; padding: 12px 14px; border-bottom: 1px solid var(--line); }
   tr:last-child td { border-bottom: 0; }
   th {
     font-family: var(--font-mono);
@@ -185,7 +185,7 @@
     color: var(--muted);
   }
   footer { color: var(--muted); font-size: 0.9rem; border-top: 1px solid var(--line); padding-top: 20px; }
-  ol { margin: 0; padding-left: 1.4em; display: grid; gap: 6px; }
+  ol { margin: 0; padding-inline-start: 1.4em; display: grid; gap: 6px; }
   ol li::marker { color: var(--accent); font-weight: 700; }
   h3 { font-family: var(--font-display); font-weight: 700; font-size: var(--step-1); margin: 8px 0 0; }
   kbd { font-family: var(--font-mono); font-size: 0.9em; background: var(--surface); border: 1px solid var(--line); border-radius: 5px; padding: 0 5px; }
@@ -199,6 +199,9 @@
     box-shadow: 0 8px 22px rgb(21 26 51 / 0.10);
   }
   .shots figcaption { font-size: 0.85rem; line-height: 1.4; color: var(--muted); text-align: center; }
+  .languages { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 0.9rem; }
+  .languages a { color: var(--muted); text-decoration: none; }
+  .languages a[aria-current="page"] { color: var(--accent); font-weight: 700; }
 </style>
 </head>
 <body>
@@ -210,6 +213,7 @@
     </div>
     <h1>Help</h1>
     <p class="effective">How to chat with your group when there's no internet.</p>
+    <nav class="languages" aria-label="Languages"><a href="https://thenez.github.io/flightchat/help/" lang="en" aria-current="page">English</a> <a href="https://thenez.github.io/flightchat/help/fr/" lang="fr">Français</a> <a href="https://thenez.github.io/flightchat/help/es/" lang="es">Español</a> <a href="https://thenez.github.io/flightchat/help/zh-Hans/" lang="zh-Hans">简体中文</a> <a href="https://thenez.github.io/flightchat/help/ja/" lang="ja">日本語</a> <a href="https://thenez.github.io/flightchat/help/he/" lang="he">עברית</a> <a href="https://thenez.github.io/flightchat/help/ko/" lang="ko">한국어</a> <a href="https://thenez.github.io/flightchat/help/ar/" lang="ar">العربية</a></nav>
   </header>
 
   <div class="pass" role="group" aria-label="Summary">
@@ -260,7 +264,7 @@
       <p>Phones only connect while FlightChat is open. When you come back to the app, phones reconnect by themselves and catch up on anything they missed.</p>
       <div class="shots">
         <figure>
-          <img src="help-chats.jpg" width="600" height="1303" alt="The FlightChat chat list: a status card at the top, then two groups, Cohen family and Beach trip, and a People section listing Mom, Dad, Maya and Noa." loading="lazy">
+          <img src="help-chats.jpg" width="600" height="1303" alt="The FlightChat chat list: a status card at the top, then two groups, Family and Beach trip, and a People section listing Mom, Dad, Sam and Mia." loading="lazy">
           <figcaption>The chat list: who's connected, your groups, and the people in them</figcaption>
         </figure>
       </div>
@@ -290,7 +294,7 @@
           <figcaption>Join: type the code you were given</figcaption>
         </figure>
         <figure>
-          <img src="help-group-info.jpg" width="600" height="1303" alt="Group Info showing the group's name, its code with Share Code, the members Dad, Mom and Noa, and Leave Group." loading="lazy">
+          <img src="help-group-info.jpg" width="600" height="1303" alt="Group Info showing the group's name, its code with Share Code, the members Dad, Mom and Mia, and Leave Group." loading="lazy">
           <figcaption>Group Info: name, code, members and Leave</figcaption>
         </figure>
       </div>
@@ -309,7 +313,7 @@
       </ul>
       <div class="shots">
         <figure>
-          <img src="help-group-chat.jpg" width="600" height="1303" alt="A group chat with messages from Dad, Noa and Mom, a Wheels up! sticker, a photo of clouds from the window with reactions, and double ticks." loading="lazy">
+          <img src="help-group-chat.jpg" width="600" height="1303" alt="A group chat with messages from Dad, Mia and Mom, a Wheels up! sticker, a photo of clouds from the window with reactions, and double ticks." loading="lazy">
           <figcaption>A group chat with a sticker, a photo and reactions</figcaption>
         </figure>
         <figure>
@@ -317,7 +321,7 @@
           <figcaption>Touch and hold a message to react</figcaption>
         </figure>
         <figure>
-          <img src="help-attach.jpg" width="600" height="1303" alt="The + menu with File, GIFs &amp; Stickers, and Photo, Video or GIF." loading="lazy">
+          <img src="help-attach.jpg" width="600" height="1303" alt="The + menu with Take Photo or Video, Photo, Video or GIF, GIFs &amp; Stickers, and File." loading="lazy">
           <figcaption>+ sends photos, videos, GIFs, stickers and files</figcaption>
         </figure>
       </div>
@@ -364,7 +368,7 @@
 
     <section>
       <h2>Languages</h2>
-      <p>FlightChat uses your iPhone's language: English, French, Spanish, Chinese, Japanese, Hebrew, Korean or Arabic. Hebrew and Arabic read right to left. Messages, names and stickers always appear exactly as they were sent. To use a different language just for FlightChat, open the iPhone's <strong>Settings</strong>, find <strong>FlightChat</strong> (under <strong>Apps</strong> on iOS 18 and later), and choose <strong>Language</strong>. This help page is in English.</p>
+      <p>FlightChat uses your iPhone's language: English, French, Spanish, Chinese, Japanese, Hebrew, Korean or Arabic. Hebrew and Arabic read right to left. Messages, names and stickers always appear exactly as they were sent. To pick a language just for FlightChat, tap the gear on the chat list, choose a <strong>Language</strong>, tap <strong>Save</strong>, then close and reopen FlightChat. You can also choose it in the iPhone's Settings app, under <strong>Apps → FlightChat → Language</strong>.</p>
     </section>
 
     <section>

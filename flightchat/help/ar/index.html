@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="canonical" href="https://thenez.github.io/flightchat/help/ar/">
+<title>مساعدة FlightChat</title>
+<meta name="description" content="كيفية استخدام FlightChat: الإعداد قبل الرحلة، والدردشة على متن الطائرة دون إنترنت، وإدارة المجموعات، وتصدير الدردشات، وحل مشكلات الاتصال.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; }
+
+  /* Layout: one readable column; a boarding-pass summary up top, then plain sections. */
+  :root {
+    --bg: #f2f4fa;
+    --surface: #ffffff;
+    --fg: #151a33;
+    --muted: #596079;
+    --line: #d9deec;
+    --accent: #4a3ed4;
+    --sunset: #e85a4f;
+    --mark: #fff1c2;
+    --font-display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+    --font-body: "Atkinson Hyperlegible", "Helvetica Neue", Arial, system-ui, sans-serif;
+    --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+    --step-0: 1.0625rem;
+    --step-1: 1.3rem;
+    --step-2: 1.7rem;
+    --step-3: clamp(2.1rem, 6vw, 3rem);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0c1023; --surface: #151a33; --fg: #e8ebf7; --muted: #9ba3c0;
+      --line: #272d4b; --accent: #a39bff; --sunset: #ff8b7c; --mark: #4a3f14;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0c1023; --surface: #151a33; --fg: #e8ebf7; --muted: #9ba3c0;
+    --line: #272d4b; --accent: #a39bff; --sunset: #ff8b7c; --mark: #4a3f14;
+    color-scheme: dark;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-body);
+    font-size: var(--step-0);
+    line-height: 1.65;
+    padding-inline: 16px;
+    padding-block: 0;
+  }
+  .page {
+    max-width: 44rem;
+    margin: 0 auto;
+    padding-block: 48px 72px;
+    display: grid;
+    gap: 40px;
+  }
+
+  header { display: grid; gap: 10px; }
+  .wordmark {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--step-0);
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .wordmark svg { width: 22px; height: 22px; flex: none; }
+  h1 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--step-3);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin: 0;
+    text-wrap: balance;
+  }
+  .effective { color: var(--muted); margin: 0; font-size: 0.95rem; }
+
+  /* Boarding-pass summary */
+  .pass {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    overflow: hidden;
+  }
+  .pass-main {
+    padding: 22px 24px;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px 16px;
+    min-width: 0;
+  }
+  .field { display: grid; gap: 2px; min-width: 0; }
+  .field-label {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .field-value {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--step-1);
+    line-height: 1.2;
+  }
+  .route { grid-column: 1 / -1; }
+  .route .field-value { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; }
+  .route .arrow { color: var(--sunset); }
+  .pass-stub {
+    border-inline-start: 2px dashed var(--line);
+    padding: 22px 20px;
+    display: grid;
+    align-content: center;
+    justify-items: center;
+    gap: 4px;
+    text-align: center;
+    min-width: 7.5rem;
+  }
+  .stub-code {
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: 1.6rem;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+  }
+  @media (max-width: 560px) {
+    .pass { grid-template-columns: minmax(0, 1fr); }
+    .pass-main { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .pass-stub {
+      border-inline-start: 0;
+      border-top: 2px dashed var(--line);
+      grid-auto-flow: column;
+      justify-content: space-between;
+      align-items: center;
+      min-width: 0;
+      padding-block: 14px;
+    }
+  }
+
+  main { display: grid; gap: 36px; }
+  section { display: grid; gap: 10px; }
+  h2 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--step-2);
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    margin: 0;
+    text-wrap: balance;
+  }
+  p, ul { margin: 0; }
+  ul { padding-inline-start: 1.2em; display: grid; gap: 6px; }
+  li::marker { color: var(--accent); }
+  strong { font-weight: 700; }
+  a { color: var(--accent); text-underline-offset: 3px; }
+  a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px; }
+  .placeholder {
+    background: var(--mark);
+    color: inherit;
+    padding: 0 4px;
+    border-radius: 4px;
+    font-family: var(--font-mono);
+    font-size: 0.92em;
+  }
+  .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+  table { border-collapse: collapse; width: 100%; font-size: 0.97rem; }
+  th, td { text-align: start; vertical-align: top; padding: 12px 14px; border-bottom: 1px solid var(--line); }
+  tr:last-child td { border-bottom: 0; }
+  th {
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  footer { color: var(--muted); font-size: 0.9rem; border-top: 1px solid var(--line); padding-top: 20px; }
+  ol { margin: 0; padding-inline-start: 1.4em; display: grid; gap: 6px; }
+  ol li::marker { color: var(--accent); font-weight: 700; }
+  h3 { font-family: var(--font-display); font-weight: 700; font-size: var(--step-1); margin: 8px 0 0; }
+  kbd { font-family: var(--font-mono); font-size: 0.9em; background: var(--surface); border: 1px solid var(--line); border-radius: 5px; padding: 0 5px; }
+  /* Screenshots: two across on phones, three on wider screens, captions underneath. */
+  .shots { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 6px; }
+  @media (min-width: 600px) { .shots { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  .shots figure { margin: 0; min-width: 0; display: grid; gap: 8px; align-content: start; }
+  .shots img {
+    width: 100%; height: auto; display: block;
+    border-radius: 20px; border: 1px solid var(--line); background: var(--surface);
+    box-shadow: 0 8px 22px rgb(21 26 51 / 0.10);
+  }
+  .shots figcaption { font-size: 0.85rem; line-height: 1.4; color: var(--muted); text-align: center; }
+  .languages { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 0.9rem; }
+  .languages a { color: var(--muted); text-decoration: none; }
+  .languages a[aria-current="page"] { color: var(--accent); font-weight: 700; }
+</style>
+</head>
+<body>
+<div class="page">
+  <header>
+    <div class="wordmark">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg>
+      FlightChat
+    </div>
+    <h1>المساعدة</h1>
+    <p class="effective">كيف تتحدث مع مجموعتك عند عدم توفر الإنترنت.</p>
+    <nav class="languages" aria-label="اللغات"><a href="https://thenez.github.io/flightchat/help/" lang="en">English</a> <a href="https://thenez.github.io/flightchat/help/fr/" lang="fr">Français</a> <a href="https://thenez.github.io/flightchat/help/es/" lang="es">Español</a> <a href="https://thenez.github.io/flightchat/help/zh-Hans/" lang="zh-Hans">简体中文</a> <a href="https://thenez.github.io/flightchat/help/ja/" lang="ja">日本語</a> <a href="https://thenez.github.io/flightchat/help/he/" lang="he">עברית</a> <a href="https://thenez.github.io/flightchat/help/ko/" lang="ko">한국어</a> <a href="https://thenez.github.io/flightchat/help/ar/" lang="ar" aria-current="page">العربية</a></nav>
+  </header>
+
+  <div class="pass" role="group" aria-label="ملخص">
+    <div class="pass-main">
+      <div class="field">
+        <span class="field-label">الإنترنت</span>
+        <span class="field-value">غير مطلوب</span>
+      </div>
+      <div class="field">
+        <span class="field-label">النطاق</span>
+        <span class="field-value">المقصورة نفسها</span>
+      </div>
+      <div class="field">
+        <span class="field-label">المجموعات</span>
+        <span class="field-value">حتى 10</span>
+      </div>
+      <div class="field route">
+        <span class="field-label">على متن الطائرة</span>
+        <span class="field-value">وضع الطيران <span class="arrow" aria-label="ثم">←</span> تشغيل Wi-Fi والبلوتوث <span class="arrow" aria-label="ثم">←</span> فتح FlightChat</span>
+      </div>
+    </div>
+    <div class="pass-stub">
+      <span class="field-label">البوابة</span>
+      <span class="stub-code">مساعدة</span>
+    </div>
+  </div>
+
+  <main>
+    <section>
+      <h2>قبل الرحلة</h2>
+      <p>جهّز كل شيء وأنتم معًا في المنزل أو عند بوابة الصعود:</p>
+      <ol>
+        <li>ثبّت FlightChat على هاتف كل فرد في مجموعتك.</li>
+        <li>ينشئ شخص واحد مجموعة ويشارك رمزها مع الآخرين، في رسالة نصية مثلًا.</li>
+        <li>ينضم الآخرون إلى المجموعة باستخدام هذا الرمز.</li>
+        <li>أرسل رسالة تجريبية وتأكد من وصولها إلى الجميع.</li>
+      </ol>
+      <p>عند فتح FlightChat لأول مرة، اسمح له بالعثور على الأجهزة في شبكتك المحلية. لا يمكنه العثور على مجموعتك دون ذلك.</p>
+    </section>
+
+    <section>
+      <h2>على متن الطائرة</h2>
+      <ol>
+        <li>فعّل <strong>وضع الطيران</strong> كالمعتاد.</li>
+        <li>افتح مركز التحكم وأعد تشغيل <strong>Wi-Fi</strong> و<strong>البلوتوث</strong>. لا داعي للانضمام إلى أي شبكة.</li>
+        <li>افتح FlightChat. يظهر في أعلى قائمة الدردشات من هو متصل.</li>
+      </ol>
+      <p>لا تتصل الهواتف إلا عندما يكون FlightChat مفتوحًا. عند عودتك إلى التطبيق، تعيد الهواتف الاتصال تلقائيًا وتستلم ما فاتها.</p>
+      <div class="shots">
+        <figure>
+          <img src="../help-chats.ar.jpg" width="600" height="1303" alt="قائمة دردشات FlightChat: بطاقة حالة في الأعلى، ثم مجموعتان هما Family وBeach trip، وقسم الأشخاص الذي يضم Mom وDad وSam وMia." loading="lazy">
+          <figcaption>قائمة الدردشات: من المتصل، ومجموعاتك، والأشخاص فيها</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section>
+      <h2>المجموعات</h2>
+      <p>المجموعة هي دردشة مشتركة لكل من يُدخل الرمز نفسه. يمكنك الانضمام إلى 10 مجموعات في وقت واحد، مثل مجموعة للعائلة وأخرى لأصدقاء على الرحلة نفسها، والبقاء متصلًا بها جميعًا.</p>
+      <h3>إنشاء مجموعة</h3>
+      <ol>
+        <li>في قائمة الدردشات، اضغط على <strong>+</strong> ثم <strong>إنشاء</strong>.</li>
+        <li>يُنشئ FlightChat رمزًا يصعب تخمينه. يمكنك تسمية المجموعة إن أردت.</li>
+        <li>اضغط على <strong>مشاركة الرمز</strong> لإرسال الرمز إلى الآخرين، ثم اضغط على <strong>إنشاء</strong>. يمكنك أيضًا مشاركته لاحقًا من معلومات المجموعة.</li>
+      </ol>
+      <h3>الانضمام إلى مجموعة</h3>
+      <p>اضغط على <strong>+</strong> ثم <strong>انضمام</strong>، واكتب الرمز الذي حصلت عليه. لا يهم إن كانت الأحرف كبيرة أو صغيرة.</p>
+      <h3>إعادة تسمية مجموعة أو مشاركتها أو مغادرتها</h3>
+      <p>افتح دردشة المجموعة، واضغط على <strong>⋯</strong> ثم <strong>معلومات المجموعة</strong>. يمكنك هناك تغيير اسم المجموعة على هاتفك، وعرض رمزها ومشاركته، ورؤية أعضائها، أو مغادرتها. تؤدي مغادرة المجموعة إلى حذف رسائلها ووسائطها من هاتفك.</p>
+      <p><strong>حافظ على سرية الرموز.</strong> يمكن لأي شخص لديه الرمز الانضمام إلى المجموعة وقراءة دردشتها.</p>
+      <div class="shots">
+        <figure>
+          <img src="../help-create.ar.jpg" width="600" height="1303" alt="شاشة «مجموعة جديدة» مع رمز مُنشأ وزر «مشاركة الرمز» واسم اختياري." loading="lazy">
+          <figcaption>إنشاء: يُنشأ رمز من أجلك</figcaption>
+        </figure>
+        <figure>
+          <img src="../help-join.ar.jpg" width="600" height="1303" alt="شاشة «الانضمام إلى مجموعة» مع رمز مجموعة مكتوب." loading="lazy">
+          <figcaption>انضمام: اكتب الرمز الذي حصلت عليه</figcaption>
+        </figure>
+        <figure>
+          <img src="../help-group-info.ar.jpg" width="600" height="1303" alt="معلومات المجموعة: اسم المجموعة، ورمزها مع «مشاركة الرمز»، والأعضاء Dad وMom وMia، و«مغادرة المجموعة»." loading="lazy">
+          <figcaption>معلومات المجموعة: الاسم والرمز والأعضاء والمغادرة</figcaption>
+        </figure>
+      </div>
+
+    </section>
+
+    <section>
+      <h2>الدردشة</h2>
+      <ul>
+        <li><strong>دردشات المجموعات والدردشات الفردية:</strong> لكل مجموعة دردشتها. يعرض قسم <strong>الأشخاص</strong> كل من تشاركه مجموعة. لمراسلة شخص بشكل خاص، اضغط على اسمه هناك.</li>
+        <li><strong>الصور والفيديو وصور GIF والملفات:</strong> اضغط على <strong>+</strong> بجوار مربع الرسالة. اختر <strong>التقاط صورة أو فيديو</strong> لاستخدام الكاميرا (مقاطع فيديو حتى دقيقتين)، أو اختر شيئًا لديك. اضغط على الوجه المبتسم للملصقات وصور GIF.</li>
+        <li><strong>التفاعلات:</strong> اضغط مطولًا على رسالة ثم اختر رمزًا تعبيريًا. يمكنك نسخ النص من هناك أيضًا.</li>
+        <li><strong>ملء الشاشة:</strong> اضغط على صورة أو مقطع فيديو. أدر هاتفك أفقيًا لرؤيته بحجم أكبر. استخدم زر المشاركة لحفظه.</li>
+        <li><strong>علامات الصح:</strong> تعني <kbd>✓</kbd> أن الرسالة حُفظت وأُرسلت إلى المتصلين. وتعني <kbd>✓✓</kbd> أنها وصلت إلى كل من أُرسلت إليهم.</li>
+        <li><strong>ليس قريبًا؟</strong> تُرسل الرسائل الموجهة إلى غير المتصلين عند إعادة الاتصال.</li>
+      </ul>
+      <div class="shots">
+        <figure>
+          <img src="../help-group-chat.ar.jpg" width="600" height="1303" alt="دردشة مجموعة فيها رسائل من Dad وMia وMom، وملصق Wheels up!، وصورة للغيوم من النافذة مع تفاعلات، وعلامتا صح." loading="lazy">
+          <figcaption>دردشة مجموعة فيها ملصق وصورة وتفاعلات</figcaption>
+        </figure>
+        <figure>
+          <img src="../help-reactions.ar.jpg" width="600" height="1303" alt="يؤدي الضغط المطوّل على رسالة إلى إظهار صف من الرموز التعبيرية للتفاعل وزر للنسخ." loading="lazy">
+          <figcaption>اضغط مطولًا على رسالة للتفاعل معها</figcaption>
+        </figure>
+        <figure>
+          <img src="../help-attach.ar.jpg" width="600" height="1303" alt="قائمة + وفيها «التقاط صورة أو فيديو» و«صورة أو فيديو أو GIF» و«صور GIF وملصقات» و«ملف»." loading="lazy">
+          <figcaption>يرسل + الصور والفيديو وصور GIF والملصقات والملفات</figcaption>
+        </figure>
+      </div>
+
+    </section>
+
+    <section>
+      <h2>تصدير دردشة</h2>
+      <p>افتح الدردشة، واضغط على <strong>⋯</strong> ثم <strong>تصدير الدردشة</strong>. يُنشئ FlightChat ملف ZIP يضم المحادثة نصًا والصور ومقاطع الفيديو والملفات الموجودة على هاتفك. احفظه في الملفات، أو أرسله عبر AirDrop، أو بالبريد الإلكتروني عند عودتك إلى الإنترنت.</p>
+      <div class="shots">
+        <figure>
+          <img src="../help-chat-menu.ar.jpg" width="600" height="1303" alt="قائمة ⋯ في دردشة مجموعة وفيها «معلومات المجموعة» و«تصدير الدردشة»." loading="lazy">
+          <figcaption>يفتح ⋯ «معلومات المجموعة» و«تصدير الدردشة»</figcaption>
+        </figure>
+      </div>
+
+    </section>
+
+    <section>
+      <h2>الحظر والإبلاغ</h2>
+      <ul>
+        <li><strong>في دردشة فردية:</strong> اضغط على <strong>⋯</strong> ثم <strong>حظر أو إبلاغ</strong>.</li>
+        <li><strong>في دردشة مجموعة:</strong> اضغط مطولًا على رسالته ثم اضغط على اليد.</li>
+        <li>لن ترى رسائله، ولن يتمكن من مراسلتك. ولن يتم إعلامه.</li>
+        <li>يرسل <strong>الإبلاغ والحظر</strong> بلاغًا إلينا بالبريد الإلكتروني أيضًا. نرد خلال 24 ساعة.</li>
+        <li>ألغِ حظر الأشخاص من <strong>الإعدادات ← الأشخاص المحظورون</strong>.</li>
+      </ul>
+      <p>يظل بإمكان من حظرته قراءة دردشة المجموعة إذا كان لديه رمزها. لإزالته تمامًا، اتفق مع الآخرين على مجموعة جديدة وغادروا القديمة.</p>
+      <p>إذا شعرت بعدم الأمان على متن الطائرة، فأخبر أحد أفراد الطاقم على الفور.</p>
+    </section>
+
+    <section>
+      <h2>إذا لم تتصل الهواتف</h2>
+      <ul>
+        <li>تأكد من تشغيل <strong>Wi-Fi</strong> و<strong>البلوتوث</strong> في مركز التحكم. يوقفهما وضع الطيران.</li>
+        <li>أبقِ FlightChat مفتوحًا على الهاتفين.</li>
+        <li>تأكد من أنكم في المجموعة نفسها: افتح دردشة المجموعة، واضغط على <strong>⋯</strong> ثم <strong>معلومات المجموعة</strong>، وقارن الرموز.</li>
+        <li>في تطبيق الإعدادات على iPhone، افتح <strong>FlightChat</strong> وتأكد من تشغيل <strong>الشبكة المحلية</strong>.</li>
+        <li>اقتربوا من بعضكم. تتصل الهواتف التي تفصلها بضعة صفوف عادةً، لكن قد لا تتصل من طرفي طائرة كبيرة.</li>
+        <li>انضممت للتو إلى مجموعة؟ ستعثر عليك الهواتف الموجودة فيها خلال ثوانٍ.</li>
+        <li>يمكن توصيل ما يصل إلى 8 هواتف ببعضها في وقت واحد، بما فيها هاتفك.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>اللغات</h2>
+      <p>يستخدم FlightChat لغة iPhone: الإنجليزية أو الفرنسية أو الإسبانية أو الصينية أو اليابانية أو العبرية أو الكورية أو العربية. تُقرأ العبرية والعربية من اليمين إلى اليسار. تظهر الرسائل والأسماء والملصقات دائمًا كما أُرسلت تمامًا. لاختيار لغة لـ FlightChat وحده، اضغط على الترس في قائمة الدردشات، واختر <strong>اللغة</strong>، واضغط على <strong>حفظ</strong>، ثم أغلق FlightChat وأعد فتحه. يمكنك أيضًا اختيارها من تطبيق الإعدادات على iPhone، ضمن <strong>التطبيقات ← FlightChat ← اللغة</strong>.</p>
+    </section>
+
+    <section>
+      <h2>بياناتك</h2>
+      <p>تبقى رسائلك على هاتفك وعلى هواتف مجموعاتك. لا توجد حسابات ولا خوادم. لحذف كل شيء، افتح <strong>الإعدادات</strong> واضغط على <strong>مسح سجل الدردشة</strong>. لمزيد من التفاصيل، اقرأ <a href="https://thenez.github.io/flightchat/privacy/">سياسة الخصوصية</a> و<a href="https://thenez.github.io/flightchat/terms/">شروط الاستخدام</a> (بالإنجليزية).</p>
+    </section>
+
+    <section>
+      <h2>اتصل بنا</h2>
+      <p>هل هناك ما لا يعمل أو لديك سؤال؟ راسلنا على <a href="mailto:biomass-65-jumbo@icloud.com">biomass-65-jumbo@icloud.com</a>.</p>
+    </section>
+  </main>
+
+  <footer>© 2026 Roni Biran · <a href="https://thenez.github.io/flightchat/privacy/">سياسة الخصوصية</a> · <a href="https://thenez.github.io/flightchat/terms/">شروط الاستخدام</a></footer>
+</div>
+</body>
+</html>

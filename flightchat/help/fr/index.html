@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="fr" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="canonical" href="https://thenez.github.io/flightchat/help/fr/">
+<title>Aide FlightChat</title>
+<meta name="description" content="Comment utiliser FlightChat : préparer avant le vol, discuter dans l'avion sans internet, gérer les groupes, exporter les discussions et régler les problèmes de connexion.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; }
+
+  /* Layout: one readable column; a boarding-pass summary up top, then plain sections. */
+  :root {
+    --bg: #f2f4fa;
+    --surface: #ffffff;
+    --fg: #151a33;
+    --muted: #596079;
+    --line: #d9deec;
+    --accent: #4a3ed4;
+    --sunset: #e85a4f;
+    --mark: #fff1c2;
+    --font-display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+    --font-body: "Atkinson Hyperlegible", "Helvetica Neue", Arial, system-ui, sans-serif;
+    --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+    --step-0: 1.0625rem;
+    --step-1: 1.3rem;
+    --step-2: 1.7rem;
+    --step-3: clamp(2.1rem, 6vw, 3rem);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0c1023; --surface: #151a33; --fg: #e8ebf7; --muted: #9ba3c0;
+      --line: #272d4b; --accent: #a39bff; --sunset: #ff8b7c; --mark: #4a3f14;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0c1023; --surface: #151a33; --fg: #e8ebf7; --muted: #9ba3c0;
+    --line: #272d4b; --accent: #a39bff; --sunset: #ff8b7c; --mark: #4a3f14;
+    color-scheme: dark;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-body);
+    font-size: var(--step-0);
+    line-height: 1.65;
+    padding-inline: 16px;
+    padding-block: 0;
+  }
+  .page {
+    max-width: 44rem;
+    margin: 0 auto;
+    padding-block: 48px 72px;
+    display: grid;
+    gap: 40px;
+  }
+
+  header { display: grid; gap: 10px; }
+  .wordmark {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--step-0);
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .wordmark svg { width: 22px; height: 22px; flex: none; }
+  h1 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--step-3);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin: 0;
+    text-wrap: balance;
+  }
+  .effective { color: var(--muted); margin: 0; font-size: 0.95rem; }
+
+  /* Boarding-pass summary */
+  .pass {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    overflow: hidden;
+  }
+  .pass-main {
+    padding: 22px 24px;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px 16px;
+    min-width: 0;
+  }
+  .field { display: grid; gap: 2px; min-width: 0; }
+  .field-label {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .field-value {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--step-1);
+    line-height: 1.2;
+  }
+  .route { grid-column: 1 / -1; }
+  .route .field-value { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; }
+  .route .arrow { color: var(--sunset); }
+  .pass-stub {
+    border-inline-start: 2px dashed var(--line);
+    padding: 22px 20px;
+    display: grid;
+    align-content: center;
+    justify-items: center;
+    gap: 4px;
+    text-align: center;
+    min-width: 7.5rem;
+  }
+  .stub-code {
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: 1.6rem;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+  }
+  @media (max-width: 560px) {
+    .pass { grid-template-columns: minmax(0, 1fr); }
+    .pass-main { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .pass-stub {
+      border-inline-start: 0;
+      border-top: 2px dashed var(--line);
+      grid-auto-flow: column;
+      justify-content: space-between;
+      align-items: center;
+      min-width: 0;
+      padding-block: 14px;
+    }
+  }
+
+  main { display: grid; gap: 36px; }
+  section { display: grid; gap: 10px; }
+  h2 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--step-2);
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    margin: 0;
+    text-wrap: balance;
+  }
+  p, ul { margin: 0; }
+  ul { padding-inline-start: 1.2em; display: grid; gap: 6px; }
+  li::marker { color: var(--accent); }
+  strong { font-weight: 700; }
+  a { color: var(--accent); text-underline-offset: 3px; }
+  a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px; }
+  .placeholder {
+    background: var(--mark);
+    color: inherit;
+    padding: 0 4px;
+    border-radius: 4px;
+    font-family: var(--font-mono);
+    font-size: 0.92em;
+  }
+  .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+  table { border-collapse: collapse; width: 100%; font-size: 0.97rem; }
+  th, td { text-align: start; vertical-align: top; padding: 12px 14px; border-bottom: 1px solid var(--line); }
+  tr:last-child td { border-bottom: 0; }
+  th {
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  footer { color: var(--muted); font-size: 0.9rem; border-top: 1px solid var(--line); padding-top: 20px; }
+  ol { margin: 0; padding-inline-start: 1.4em; display: grid; gap: 6px; }
+  ol li::marker { color: var(--accent); font-weight: 700; }
+  h3 { font-family: var(--font-display); font-weight: 700; font-size: var(--step-1); margin: 8px 0 0; }
+  kbd { font-family: var(--font-mono); font-size: 0.9em; background: var(--surface); border: 1px solid var(--line); border-radius: 5px; padding: 0 5px; }
+  /* Screenshots: two across on phones, three on wider screens, captions underneath. */
+  .shots { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 6px; }
+  @media (min-width: 600px) { .shots { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  .shots figure { margin: 0; min-width: 0; display: grid; gap: 8px; align-content: start; }
+  .shots img {
+    width: 100%; height: auto; display: block;
+    border-radius: 20px; border: 1px solid var(--line); background: var(--surface);
+    box-shadow: 0 8px 22px rgb(21 26 51 / 0.10);
+  }
+  .shots figcaption { font-size: 0.85rem; line-height: 1.4; color: var(--muted); text-align: center; }
+  .languages { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 0.9rem; }
+  .languages a { color: var(--muted); text-decoration: none; }
+  .languages a[aria-current="page"] { color: var(--accent); font-weight: 700; }
+</style>
+</head>
+<body>
+<div class="page">
+  <header>
+    <div class="wordmark">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg>
+      FlightChat
+    </div>
+    <h1>Aide</h1>
+    <p class="effective">Comment discuter avec votre groupe sans internet.</p>
+    <nav class="languages" aria-label="Langues"><a href="https://thenez.github.io/flightchat/help/" lang="en">English</a> <a href="https://thenez.github.io/flightchat/help/fr/" lang="fr" aria-current="page">Français</a> <a href="https://thenez.github.io/flightchat/help/es/" lang="es">Español</a> <a href="https://thenez.github.io/flightchat/help/zh-Hans/" lang="zh-Hans">简体中文</a> <a href="https://thenez.github.io/flightchat/help/ja/" lang="ja">日本語</a> <a href="https://thenez.github.io/flightchat/help/he/" lang="he">עברית</a> <a href="https://thenez.github.io/flightchat/help/ko/" lang="ko">한국어</a> <a href="https://thenez.github.io/flightchat/help/ar/" lang="ar">العربية</a></nav>
+  </header>
+
+  <div class="pass" role="group" aria-label="Résumé">
+    <div class="pass-main">
+      <div class="field">
+        <span class="field-label">Internet</span>
+        <span class="field-value">Inutile</span>
+      </div>
+      <div class="field">
+        <span class="field-label">Portée</span>
+        <span class="field-value">Même cabine</span>
+      </div>
+      <div class="field">
+        <span class="field-label">Groupes</span>
+        <span class="field-value">Jusqu'à 10</span>
+      </div>
+      <div class="field route">
+        <span class="field-label">À bord</span>
+        <span class="field-value">Mode Avion <span class="arrow" aria-label="puis">→</span> Wi-Fi et Bluetooth activés <span class="arrow" aria-label="puis">→</span> ouvrir FlightChat</span>
+      </div>
+    </div>
+    <div class="pass-stub">
+      <span class="field-label">Porte</span>
+      <span class="stub-code">AIDE</span>
+    </div>
+  </div>
+
+  <main>
+    <section>
+      <h2>Avant le vol</h2>
+      <p>Préparez tout pendant que vous êtes ensemble, à la maison ou à la porte d'embarquement :</p>
+      <ol>
+        <li>Installez FlightChat sur chaque téléphone du groupe.</li>
+        <li>Une personne crée un groupe et partage son code avec les autres, par exemple par SMS.</li>
+        <li>Les autres rejoignent le groupe avec ce code.</li>
+        <li>Envoyez un message de test et vérifiez que tout le monde le reçoit.</li>
+      </ol>
+      <p>À la première ouverture, autorisez FlightChat à trouver des appareils sur votre réseau local. Sans cela, il ne peut pas trouver votre groupe.</p>
+    </section>
+
+    <section>
+      <h2>Dans l'avion</h2>
+      <ol>
+        <li>Activez le <strong>mode Avion</strong> comme d'habitude.</li>
+        <li>Ouvrez le centre de contrôle et réactivez le <strong>Wi-Fi</strong> et le <strong>Bluetooth</strong>. Inutile de vous connecter à un réseau.</li>
+        <li>Ouvrez FlightChat. Le haut de la liste des discussions indique qui est connecté.</li>
+      </ol>
+      <p>Les téléphones ne se connectent que lorsque FlightChat est ouvert. Quand vous revenez dans l'app, ils se reconnectent d'eux-mêmes et récupèrent tout ce qu'ils ont manqué.</p>
+      <div class="shots">
+        <figure>
+          <img src="../help-chats.fr.jpg" width="600" height="1303" alt="La liste des discussions de FlightChat : une carte d'état en haut, puis deux groupes, Family et Beach trip, et une section Personnes avec Mom, Dad, Sam et Mia." loading="lazy">
+          <figcaption>La liste des discussions : qui est connecté, vos groupes et leurs membres</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section>
+      <h2>Groupes</h2>
+      <p>Un groupe est une discussion commune pour tous ceux qui saisissent le même code. Vous pouvez faire partie de 10 groupes à la fois, par exemple un pour votre famille et un pour des amis sur le même vol, et rester connecté à tous.</p>
+      <h3>Créer un groupe</h3>
+      <ol>
+        <li>Dans la liste des discussions, touchez <strong>+</strong>, puis <strong>Créer</strong>.</li>
+        <li>FlightChat génère un code difficile à deviner. Donnez un nom au groupe si vous le souhaitez.</li>
+        <li>Touchez <strong>Partager le code</strong> pour l'envoyer aux autres, puis <strong>Créer</strong>. Vous pourrez aussi le partager plus tard depuis Infos du groupe.</li>
+      </ol>
+      <h3>Rejoindre un groupe</h3>
+      <p>Touchez <strong>+</strong>, puis <strong>Rejoindre</strong>, et saisissez le code qu'on vous a donné. Les majuscules n'ont pas d'importance.</p>
+      <h3>Renommer, partager ou quitter un groupe</h3>
+      <p>Ouvrez la discussion du groupe, touchez <strong>⋯</strong>, puis <strong>Infos du groupe</strong>. Vous pouvez y changer le nom du groupe sur votre téléphone, voir et partager son code, voir ses membres ou le quitter. Quitter un groupe supprime ses messages et médias de votre téléphone.</p>
+      <p><strong>Gardez les codes secrets.</strong> Toute personne qui a le code peut rejoindre le groupe et lire sa discussion.</p>
+      <div class="shots">
+        <figure>
+          <img src="../help-create.fr.jpg" width="600" height="1303" alt="L'écran Nouveau groupe avec un code généré, un bouton Partager le code et un nom facultatif." loading="lazy">
+          <figcaption>Créer : un code est généré pour vous</figcaption>
+        </figure>
+        <figure>
+          <img src="../help-join.fr.jpg" width="600" height="1303" alt="L'écran Rejoindre un groupe avec un code de groupe saisi." loading="lazy">
+          <figcaption>Rejoindre : saisissez le code reçu</figcaption>
+        </figure>
+        <figure>
+          <img src="../help-group-info.fr.jpg" width="600" height="1303" alt="Infos du groupe montrant le nom du groupe, son code avec Partager le code, les membres Dad, Mom et Mia, et Quitter le groupe." loading="lazy">
+          <figcaption>Infos du groupe : nom, code, membres et Quitter</figcaption>
+        </figure>
+      </div>
+
+    </section>
+
+    <section>
+      <h2>Discuter</h2>
+      <ul>
+        <li><strong>Discussions de groupe et individuelles :</strong> chaque groupe a sa propre discussion. <strong>Personnes</strong> liste tous ceux avec qui vous partagez un groupe. Pour écrire en privé à quelqu'un, touchez son nom.</li>
+        <li><strong>Photos, vidéos, GIF et fichiers :</strong> touchez <strong>+</strong> à côté du champ de message. Choisissez <strong>Prendre une photo ou une vidéo</strong> pour utiliser l'appareil photo (vidéos jusqu'à 2 minutes), ou choisissez un élément existant. Touchez le smiley pour les autocollants et les GIF.</li>
+        <li><strong>Réactions :</strong> maintenez le doigt sur un message, puis choisissez un emoji. Vous pouvez aussi copier le texte depuis ce menu.</li>
+        <li><strong>Plein écran :</strong> touchez une photo ou une vidéo. Tournez le téléphone pour l'agrandir. Utilisez le bouton de partage pour l'enregistrer.</li>
+        <li><strong>Coches :</strong> <kbd>✓</kbd> signifie que le message est enregistré et envoyé aux personnes connectées. <kbd>✓✓</kbd> signifie que tous ses destinataires l'ont reçu.</li>
+        <li><strong>Pas à proximité ?</strong> Les messages aux personnes non connectées partent dès la reconnexion.</li>
+      </ul>
+      <div class="shots">
+        <figure>
+          <img src="../help-group-chat.fr.jpg" width="600" height="1303" alt="Une discussion de groupe avec des messages de Dad, Mia et Mom, un autocollant Wheels up!, une photo de nuages prise par le hublot avec des réactions, et des doubles coches." loading="lazy">
+          <figcaption>Une discussion de groupe avec un autocollant, une photo et des réactions</figcaption>
+        </figure>
+        <figure>
+          <img src="../help-reactions.fr.jpg" width="600" height="1303" alt="Maintenir le doigt sur un message affiche une rangée d'emoji pour réagir et un bouton Copier." loading="lazy">
+          <figcaption>Maintenez le doigt sur un message pour réagir</figcaption>
+        </figure>
+        <figure>
+          <img src="../help-attach.fr.jpg" width="600" height="1303" alt="Le menu + avec Prendre une photo ou une vidéo, Photo, vidéo ou GIF, GIF et autocollants, et Fichier." loading="lazy">
+          <figcaption>+ envoie photos, vidéos, GIF, autocollants et fichiers</figcaption>
+        </figure>
+      </div>
+
+    </section>
+
+    <section>
+      <h2>Exporter une discussion</h2>
+      <p>Ouvrez la discussion, touchez <strong>⋯</strong>, puis <strong>Exporter la discussion</strong>. FlightChat crée un fichier ZIP avec la conversation en texte et les photos, vidéos et fichiers présents sur votre téléphone. Enregistrez-le dans Fichiers, envoyez-le par AirDrop ou par e-mail une fois de nouveau en ligne.</p>
+      <div class="shots">
+        <figure>
+          <img src="../help-chat-menu.fr.jpg" width="600" height="1303" alt="Le menu ⋯ d'une discussion de groupe avec Infos du groupe et Exporter la discussion." loading="lazy">
+          <figcaption>⋯ ouvre Infos du groupe et Exporter la discussion</figcaption>
+        </figure>
+      </div>
+
+    </section>
+
+    <section>
+      <h2>Bloquer et signaler</h2>
+      <ul>
+        <li><strong>Dans une discussion individuelle :</strong> touchez <strong>⋯</strong>, puis <strong>Bloquer ou signaler</strong>.</li>
+        <li><strong>Dans une discussion de groupe :</strong> maintenez le doigt sur son message, puis touchez la main.</li>
+        <li>Vous ne voyez plus ses messages et cette personne ne peut plus vous écrire. Elle n'en est pas informée.</li>
+        <li><strong>Signaler et bloquer</strong> nous envoie aussi un signalement par e-mail. Nous répondons sous 24 heures.</li>
+        <li>Débloquez des personnes dans <strong>Réglages → Personnes bloquées</strong>.</li>
+      </ul>
+      <p>Une personne bloquée qui a le code du groupe peut toujours lire la discussion du groupe. Pour l'exclure complètement, créez un nouveau groupe avec les autres et quittez l'ancien.</p>
+      <p>Si vous ne vous sentez pas en sécurité à bord, prévenez immédiatement un membre de l'équipage.</p>
+    </section>
+
+    <section>
+      <h2>Si les téléphones ne se connectent pas</h2>
+      <ul>
+        <li>Vérifiez que le <strong>Wi-Fi</strong> et le <strong>Bluetooth</strong> sont activés dans le centre de contrôle. Le mode Avion les désactive.</li>
+        <li>Gardez FlightChat ouvert sur les deux téléphones.</li>
+        <li>Vérifiez que vous êtes dans le même groupe : ouvrez la discussion du groupe, touchez <strong>⋯</strong>, puis <strong>Infos du groupe</strong>, et comparez les codes.</li>
+        <li>Dans l'app Réglages de l'iPhone, ouvrez <strong>FlightChat</strong> et vérifiez que <strong>Réseau local</strong> est activé.</li>
+        <li>Rapprochez-vous. Des téléphones à quelques rangées d'écart se connectent généralement ; à l'autre bout d'un grand avion, ce n'est pas toujours le cas.</li>
+        <li>Vous venez de rejoindre un groupe ? Les téléphones qui y sont déjà vous trouvent en quelques secondes.</li>
+        <li>Jusqu'à 8 téléphones peuvent être connectés entre eux en même temps, le vôtre compris.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Langues</h2>
+      <p>FlightChat utilise la langue de votre iPhone : anglais, français, espagnol, chinois, japonais, hébreu, coréen ou arabe. L'hébreu et l'arabe se lisent de droite à gauche. Les messages, les noms et les autocollants s'affichent toujours tels qu'ils ont été envoyés. Pour choisir une langue rien que pour FlightChat, touchez la roue dentée dans la liste des discussions, choisissez une <strong>Langue</strong>, touchez <strong>Enregistrer</strong>, puis fermez et rouvrez FlightChat. Vous pouvez aussi la choisir dans l'app Réglages de l'iPhone, sous <strong>Apps → FlightChat → Langue</strong>.</p>
+    </section>
+
+    <section>
+      <h2>Vos données</h2>
+      <p>Vos messages restent sur votre téléphone et sur ceux de vos groupes. Il n'y a ni compte ni serveur. Pour tout supprimer, ouvrez <strong>Réglages</strong> et touchez <strong>Effacer l'historique</strong>. Pour en savoir plus, consultez la <a href="https://thenez.github.io/flightchat/privacy/">Politique de confidentialité</a> et les <a href="https://thenez.github.io/flightchat/terms/">Conditions d'utilisation</a> (en anglais).</p>
+    </section>
+
+    <section>
+      <h2>Contact</h2>
+      <p>Un problème ou une question ? Écrivez à <a href="mailto:biomass-65-jumbo@icloud.com">biomass-65-jumbo@icloud.com</a>.</p>
+    </section>
+  </main>
+
+  <footer>© 2026 Roni Biran · <a href="https://thenez.github.io/flightchat/privacy/">Politique de confidentialité</a> · <a href="https://thenez.github.io/flightchat/terms/">Conditions d'utilisation</a></footer>
+</div>
+</body>
+</html>
