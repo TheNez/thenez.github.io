@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="canonical" href="https://thenez.github.io/whereami/privacy/">
+<title>Where Am I? Privacy Policy</title>
+<meta name="description" content="Where Am I? collects no data. Your location is used on your iPhone to show your GPS readings and is never sent to us.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; }
+
+  /* Layout: one readable column; an instrument-panel summary up top, then plain sections. */
+  :root {
+    --bg: #eef3f7;
+    --surface: #ffffff;
+    --fg: #0c1a33;
+    --muted: #55637a;
+    --line: #d5dee8;
+    --accent: #0a7f86;
+    --mark: #fff1c2;
+    --font-display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+    --font-body: "Atkinson Hyperlegible", "Helvetica Neue", Arial, system-ui, sans-serif;
+    --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+    --step-0: 1.0625rem;
+    --step-1: 1.3rem;
+    --step-2: 1.7rem;
+    --step-3: clamp(2.1rem, 6vw, 3rem);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #070d1c; --surface: #0f1a33; --fg: #e6eef8; --muted: #93a3bd;
+      --line: #22304f; --accent: #4fd6d6; --mark: #4a3f14;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #070d1c; --surface: #0f1a33; --fg: #e6eef8; --muted: #93a3bd;
+    --line: #22304f; --accent: #4fd6d6; --mark: #4a3f14;
+    color-scheme: dark;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-body);
+    font-size: var(--step-0);
+    line-height: 1.65;
+    padding-inline: 16px;
+    padding-block: 0;
+  }
+  .page {
+    max-width: 44rem;
+    margin: 0 auto;
+    padding-block: 48px 72px;
+    display: grid;
+    gap: 40px;
+  }
+
+  header { display: grid; gap: 10px; }
+  .wordmark {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--step-0);
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .wordmark svg { width: 22px; height: 22px; flex: none; }
+  h1 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--step-3);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin: 0;
+    text-wrap: balance;
+  }
+  .effective { color: var(--muted); margin: 0; font-size: 0.95rem; }
+
+  /* Instrument-panel summary */
+  .panel {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    overflow: hidden;
+  }
+  .panel-main {
+    padding: 22px 24px;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px 16px;
+    min-width: 0;
+  }
+  .field { display: grid; gap: 2px; min-width: 0; }
+  .field-label {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .field-value {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--step-1);
+    line-height: 1.2;
+  }
+  .wide { grid-column: 1 / -1; }
+  .panel-side {
+    border-left: 1px solid var(--line);
+    background: linear-gradient(160deg, #0c2c6e, #0a7f86); /* same in both themes, so the white text stays readable */
+    color: #fff;
+    padding: 22px 20px;
+    display: grid;
+    align-content: center;
+    justify-items: center;
+    gap: 4px;
+    text-align: center;
+    min-width: 7.5rem;
+  }
+  .panel-side .field-label { color: rgba(255, 255, 255, 0.8); }
+  .side-code {
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: 1.6rem;
+    letter-spacing: 0.08em;
+  }
+  @media (max-width: 560px) {
+    .panel { grid-template-columns: minmax(0, 1fr); }
+    .panel-main { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .panel-side {
+      border-left: 0;
+      border-top: 1px solid var(--line);
+      grid-auto-flow: column;
+      justify-content: space-between;
+      align-items: center;
+      min-width: 0;
+      padding-block: 14px;
+    }
+  }
+
+  main { display: grid; gap: 36px; }
+  section { display: grid; gap: 10px; }
+  h2 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--step-2);
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    margin: 0;
+    text-wrap: balance;
+  }
+  p, ul { margin: 0; }
+  ul { padding-left: 1.2em; display: grid; gap: 6px; }
+  li::marker { color: var(--accent); }
+  strong { font-weight: 700; }
+  a { color: var(--accent); text-underline-offset: 3px; }
+  a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px; }
+  .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+  table { border-collapse: collapse; width: 100%; font-size: 0.97rem; }
+  th, td { text-align: left; vertical-align: top; padding: 12px 14px; border-bottom: 1px solid var(--line); }
+  tr:last-child td { border-bottom: 0; }
+  th {
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  footer { color: var(--muted); font-size: 0.9rem; border-top: 1px solid var(--line); padding-top: 20px; }
+</style>
+</head>
+<body>
+<div class="page">
+  <header>
+    <div class="wordmark">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M21 3 3 10.5v1.1l7.1 2.3L12.4 21h1.1z"/></svg>
+      Where Am I?
+    </div>
+    <h1>Privacy Policy</h1>
+    <p class="effective">Effective October 6, 2026</p>
+  </header>
+
+  <div class="panel" role="group" aria-label="Summary">
+    <div class="panel-main">
+      <div class="field">
+        <span class="field-label">Data collected</span>
+        <span class="field-value">None</span>
+      </div>
+      <div class="field">
+        <span class="field-label">Our servers</span>
+        <span class="field-value">None</span>
+      </div>
+      <div class="field">
+        <span class="field-label">Ads &amp; tracking</span>
+        <span class="field-value">None</span>
+      </div>
+      <div class="field wide">
+        <span class="field-label">Your location stays</span>
+        <span class="field-value">On your iPhone</span>
+      </div>
+    </div>
+    <div class="panel-side">
+      <span class="field-label">Account</span>
+      <span class="side-code">NONE</span>
+    </div>
+  </div>
+
+  <main>
+    <section>
+      <h2>The short version</h2>
+      <p>Where Am I? shows your iPhone's GPS readings: your position, altitude, ground speed, heading and signal strength. Your location is used on your phone to show those readings and is never sent to us. We don't run servers, we don't have accounts, and there's no analytics or advertising in the app.</p>
+    </section>
+
+    <section>
+      <h2>Your location</h2>
+      <ul>
+        <li>The app reads your location only while it's open on screen.</li>
+        <li>If you turn on <strong>Show on Lock Screen</strong> in the app's Settings, it keeps reading your location while it's in the background, to keep the Live Activity up to date. iOS shows a blue location indicator while this happens. Turn the setting off, or close the app, to stop it.</li>
+        <li>Your location is processed on your iPhone and is never sent to us or to any third party by the app.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>What's stored on your phone</h2>
+      <p>Where Am I? stores the following only on your iPhone, inside the app:</p>
+      <ul>
+        <li>Your settings, such as units and coordinate format</li>
+        <li>Your current trip: distance, duration, maximum speed and altitude, and the recorded track (positions, altitudes, speeds and times), until you tap <strong>Reset</strong></li>
+      </ul>
+      <p>None of this is sent to us or to any third party. If you back up your iPhone to iCloud or a computer, iOS includes the app's storage in the backup. Apple's privacy policy covers those backups.</p>
+    </section>
+
+    <section>
+      <h2>Maps</h2>
+      <p>The map uses Apple Maps. To draw it, your iPhone downloads map images for the area on screen from Apple when you have an internet connection. Apple handles those requests under the <a href="https://www.apple.com/legal/privacy/data/en/apple-maps/">Apple Maps privacy policy</a>. We never see them. Without an internet connection, such as on a plane, the map is blank but your position and track still show.</p>
+    </section>
+
+    <section>
+      <h2>Snapshots and GPX exports</h2>
+      <p>When you tap <strong>Save</strong> or <strong>Export GPX</strong>, the app creates an image, a text summary or a GPX track file on your phone and opens the iOS share sheet. It goes only where you choose to save or send it. Remember that these files contain your location.</p>
+    </section>
+
+    <section>
+      <h2>On the Lock Screen</h2>
+      <p>With <strong>Show on Lock Screen</strong> on, your speed, altitude and coordinates appear on your Lock Screen and in the Dynamic Island, where anyone who can see your phone can read them.</p>
+    </section>
+
+    <section>
+      <h2>What we never collect</h2>
+      <p>No analytics or advertising code runs in Where Am I?. The app doesn't send your location, contacts, phone number, email address, advertising identifier or device information anywhere, and it doesn't track you across other apps or websites.</p>
+      <p>If you've chosen to share analytics with app developers in your iPhone's settings, Apple may send us anonymous crash reports and usage statistics. We use these only to fix bugs. You can turn this off under <strong>Settings → Privacy &amp; Security → Analytics &amp; Improvements</strong>.</p>
+    </section>
+
+    <section>
+      <h2>Permissions the app asks for</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th scope="col">Permission</th><th scope="col">Why</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Location (While Using the App)</td><td>Required to show your position, altitude, speed and signal. Also used in the background only while <strong>Show on Lock Screen</strong> is on.</td></tr>
+            <tr><td>Add to Photos</td><td>Used only when you choose to save a snapshot to Photos.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <h2>Deleting your data</h2>
+      <ul>
+        <li>To erase your trip and recorded track, tap <strong>Reset</strong> on the Trip card.</li>
+        <li>Deleting the app removes everything it stored on your phone.</li>
+        <li>Snapshots and GPX files you saved or sent elsewhere stay there until you delete them.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Children</h2>
+      <p>We don't collect personal information from anyone, including children under 13.</p>
+    </section>
+
+    <section>
+      <h2>Changes to this policy</h2>
+      <p>If we change how Where Am I? handles your information, we'll update this page and the date at the top. Any change that affects your data will also be described in the app's release notes.</p>
+    </section>
+
+    <section>
+      <h2>Contact</h2>
+      <p>Using Where Am I? also means agreeing to its <a href="https://thenez.github.io/whereami/terms/">Terms of Use</a>.</p>
+      <p>Where Am I? is made by Roni Biran. Questions about privacy? Email <a href="mailto:biomass-65-jumbo@icloud.com">biomass-65-jumbo@icloud.com</a>.</p>
+    </section>
+  </main>
+
+  <footer>© 2026 Roni Biran · <a href="https://thenez.github.io/whereami/terms/">Terms of Use</a></footer>
+</div>
+</body>
+</html>
