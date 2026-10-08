@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Help · Vortex Simulator</title>
+<meta name="description" content="How to use Vortex Simulator: the wind tunnel, importing models, and aircraft, cars and trains.">
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; }
+  :root {
+    --bg: #f3f5f9;
+    --surface: #ffffff;
+    --fg: #121826;
+    --muted: #5b6477;
+    --line: #dbe0ea;
+    --accent: #2f6fe0;          /* clockwise vortex */
+    --warm: #e2622d;            /* counter-clockwise vortex */
+    --code-bg: #eef1f7;
+    --font-display: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+    --font-body: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #080b14; --surface: #111726; --fg: #e7ebf5; --muted: #9aa3b8;
+      --line: #252d42; --accent: #6f9dff; --warm: #ff8a52; --code-bg: #182033;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #080b14; --surface: #111726; --fg: #e7ebf5; --muted: #9aa3b8;
+    --line: #252d42; --accent: #6f9dff; --warm: #ff8a52; --code-bg: #182033;
+    color-scheme: dark;
+  }
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-body);
+    font-size: 1.0625rem;
+    line-height: 1.65;
+    padding-inline: 16px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .page { max-width: 46rem; margin: 0 auto; padding-block: 40px 72px; display: grid; gap: 36px; }
+  header { display: grid; gap: 10px; }
+  nav { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 0.95rem; }
+  nav a { color: var(--muted); text-decoration: none; }
+  nav a[aria-current="page"] { color: var(--fg); font-weight: 600; }
+  nav a:hover { color: var(--accent); }
+  .wordmark { display: flex; align-items: center; gap: 10px; font-weight: 700; color: var(--accent); }
+  .wordmark svg { width: 26px; height: 26px; flex: none; }
+  h1 { font-family: var(--font-display); font-size: clamp(2rem, 6vw, 2.8rem); line-height: 1.05; letter-spacing: -0.02em; margin: 0; text-wrap: balance; }
+  .effective { color: var(--muted); margin: 0; font-size: 0.95rem; }
+  /* Readout strip, like the tunnel's HUD */
+  .readouts {
+    background: var(--surface); border: 1px solid var(--line); border-radius: 14px;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+    overflow: hidden;
+  }
+  .readout { padding: 14px 18px; display: grid; gap: 2px; border-right: 1px solid var(--line); min-width: 0; }
+  .readout:last-child { border-right: none; }
+  .readout span { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+  .readout strong { font-family: var(--font-mono); font-size: 1.15rem; }
+  section { display: grid; gap: 10px; }
+  h2 { font-family: var(--font-display); font-size: 1.45rem; letter-spacing: -0.01em; margin: 8px 0 0; }
+  h3 { font-size: 1.1rem; margin: 6px 0 0; }
+  p, ul, ol { margin: 0; }
+  ul, ol { padding-left: 1.3em; display: grid; gap: 4px; }
+  a { color: var(--accent); }
+  kbd, code { font-family: var(--font-mono); font-size: 0.88em; background: var(--code-bg); border: 1px solid var(--line); border-radius: 6px; padding: 1px 6px; }
+  table { border-collapse: collapse; width: 100%; font-size: 0.97rem; }
+  th, td { text-align: left; vertical-align: top; padding: 8px 10px; border-bottom: 1px solid var(--line); }
+  th { color: var(--muted); font-weight: 600; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.06em; }
+  .table-wrap { overflow-x: auto; }
+  .note { background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--warm); border-radius: 10px; padding: 14px 16px; }
+  footer { color: var(--muted); font-size: 0.9rem; border-top: 1px solid var(--line); padding-top: 20px; display: flex; flex-wrap: wrap; gap: 6px 16px; }
+  footer a { color: var(--muted); }
+</style>
+</head>
+<body>
+<main class="page">
+  <header>
+    <div class="wordmark">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="15" fill="none" stroke="currentColor" stroke-width="2" opacity=".35"/><path d="M16 6a10 10 0 1 1-9.5 13.1M16 11a5 5 0 1 1-4.7 6.6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><circle cx="16" cy="16" r="1.8" fill="currentColor"/></svg>
+      Vortex Simulator
+    </div>
+    <nav aria-label="Documents"><a href="https://thenez.github.io/vortex-simulator/help/" aria-current="page">Help</a><a href="https://thenez.github.io/vortex-simulator/terms/">Terms of Use</a><a href="https://thenez.github.io/vortex-simulator/privacy/">Privacy Policy</a><a href="https://thenez.github.io/vortex-simulator/disclaimer/">Disclaimer</a></nav>
+    <h1>Help</h1>
+    <p class="effective">Updated October 8, 2026</p>
+  </header>
+  <div class="readouts">
+    <div class="readout"><span>Tunnel</span><strong>Live GPU flow</strong></div>
+    <div class="readout"><span>Vehicles</span><strong>16 presets</strong></div>
+    <div class="readout"><span>Import</span><strong>STL · OBJ · USD · DXF</strong></div>
+    <div class="readout"><span>Network</span><strong>None</strong></div>
+  </div>
+  <section>
+    <h2>Getting started</h2>
+    <p>Vortex Simulator has two pages, chosen at the top of the window:</p>
+    <ul>
+      <li><strong>Wind Tunnel:</strong> a live fluid simulation. Put an airfoil, a car, a train or any shape in the flow and watch the vortices form while lift and drag are measured.</li>
+      <li><strong>Aircraft, Cars &amp; Trains:</strong> typical vehicles and the forces on them: a wing's lift and induced drag, a race car's downforce, a train's resistance and top speed, and the vortices in their wakes.</li>
+    </ul>
+    <div class="table-wrap"><table>
+      <tr><th>Shortcut</th><th>Action</th></tr>
+      <tr><td><kbd>Space</kbd></td><td>Run or pause the simulation</td></tr>
+      <tr><td><kbd>⌘R</kbd></td><td>Reset the flow</td></tr>
+      <tr><td><kbd>⌘I</kbd></td><td>Import a 3D model or DXF drawing</td></tr>
+      <tr><td><kbd>⇧</kbd> while dragging</td><td>Snap angles to round steps</td></tr>
+    </table></div>
+  </section>
+
+  <section id="tunnel">
+    <h2>Wind Tunnel</h2>
+    <p>Air enters from the left at a steady speed. The sidebar sets up the simulation:</p>
+    <ul>
+      <li><strong>Reynolds number:</strong> low values (about 100) give smooth flow and a regular vortex street; thousands give turbulent, chaotic wakes.</li>
+      <li><strong>Steps per frame</strong> speeds the simulation up; <strong>Grid</strong> trades detail for speed.</li>
+      <li><strong>Shape:</strong> NACA airfoil, car, train, cylinder, flat plate, ellipse, freehand drawing or an imported model.</li>
+      <li><strong>Show:</strong> smoke, vorticity (spin), speed or pressure. Smoke can be overlaid on the others.</li>
+    </ul>
+    <p><strong>Rotate by dragging.</strong> With the brush off, drag in the tunnel to turn the airfoil, plate, ellipse, car or imported model. Grab far from it for fine control.</p>
+    <p><strong>Draw obstacles.</strong> Set the brush to Draw or Erase and drag in the tunnel to add or remove solid material.</p>
+    <p><strong>Readouts.</strong> Lift Cl and drag Cd are measured on the body as the flow develops. For airfoils, the Airfoil theory tab compares them with inviscid theory.</p>
+  </section>
+
+  <section id="import">
+    <h2>Importing your own designs</h2>
+    <p>Choose <strong>Shape → Imported</strong>, press <kbd>⌘I</kbd>, or drop a file on the tunnel. Supported: STL, OBJ, PLY, USD/USDZ, Alembic and ASCII DXF. Save DWG files as DXF, and export FBX, STEP or IGES as STL.</p>
+    <ul>
+      <li><strong>Silhouette</strong> uses the model's outline seen from the side; <strong>Slice</strong> cuts through it, for example a car's centreline or a wing section.</li>
+      <li>Set which axis runs along the flow and which points up, flip it, and set its length, angle and whether it rests on the road.</li>
+      <li>Check the outline preview in the sidebar: that's exactly what the tunnel simulates.</li>
+    </ul>
+  </section>
+
+  <section id="vehicles">
+    <h2>Aircraft, Cars &amp; Trains</h2>
+    <h3>Aircraft</h3>
+    <p>Pick an aircraft from a high-wing trainer to a double-deck airliner, then change its wing, airfoil, speed, altitude, mass and bank angle. <strong>Trim</strong> finds the angle of attack where lift holds the weight. Drag the side view to change the angle of attack and the wake view to bank.</p>
+    <h3>Cars</h3>
+    <p>From a family sedan to an open-wheel race car: body coefficients, wings and speed. Drag the side view to pitch the car and watch the wing downforce change.</p>
+    <h3>Trains</h3>
+    <p>From a commuter train to a long-nose bullet train. Resistance is split into rolling, bogies, skin friction and the nose and tail. <strong>Drag the nose</strong> in the side view to lengthen it. The resistance chart shows where traction power runs out: the train's top speed.</p>
+  </section>
+
+  <section id="tips">
+    <h2>Tips</h2>
+    <ul>
+      <li><strong>See a vortex street:</strong> cylinder, Reynolds 150–300, Vorticity view.</li>
+      <li><strong>See stall:</strong> airfoil at 15–20° and Reynolds about 1,000.</li>
+      <li><strong>Save battery:</strong> pause the simulation with <kbd>Space</kbd>. A paused tunnel stops drawing until something changes.</li>
+      <li><strong>Grainy flow or a viscosity warning?</strong> Lower the Reynolds number or raise the grid resolution.</li>
+    </ul>
+    <p>The tunnel is 2D and runs at small Reynolds numbers, so treat its numbers as trends. The <a href="https://thenez.github.io/vortex-simulator/disclaimer/">Disclaimer</a> explains the limits.</p>
+  </section>
+
+  <section id="contact">
+    <h2>Questions and feedback</h2>
+    <p>Email <a href="mailto:biomass-65-jumbo@icloud.com">biomass-65-jumbo@icloud.com</a>. Bug reports, ideas and corrections are all welcome; please include your Mac model and macOS version.</p>
+  </section>
+  <footer>
+    <span>© 2026 Roni Biran</span>
+    <a href="https://thenez.github.io/vortex-simulator/terms/">Terms of Use</a>
+    <a href="https://thenez.github.io/vortex-simulator/privacy/">Privacy Policy</a>
+    <a href="https://thenez.github.io/vortex-simulator/disclaimer/">Disclaimer</a>
+    <a href="mailto:biomass-65-jumbo@icloud.com">biomass-65-jumbo@icloud.com</a>
+  </footer>
+</main>
+</body>
+</html>

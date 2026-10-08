@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy Policy · Vortex Simulator</title>
+<meta name="description" content="Vortex Simulator collects no data and makes no network connections.">
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; }
+  :root {
+    --bg: #f3f5f9;
+    --surface: #ffffff;
+    --fg: #121826;
+    --muted: #5b6477;
+    --line: #dbe0ea;
+    --accent: #2f6fe0;          /* clockwise vortex */
+    --warm: #e2622d;            /* counter-clockwise vortex */
+    --code-bg: #eef1f7;
+    --font-display: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+    --font-body: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #080b14; --surface: #111726; --fg: #e7ebf5; --muted: #9aa3b8;
+      --line: #252d42; --accent: #6f9dff; --warm: #ff8a52; --code-bg: #182033;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #080b14; --surface: #111726; --fg: #e7ebf5; --muted: #9aa3b8;
+    --line: #252d42; --accent: #6f9dff; --warm: #ff8a52; --code-bg: #182033;
+    color-scheme: dark;
+  }
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-body);
+    font-size: 1.0625rem;
+    line-height: 1.65;
+    padding-inline: 16px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .page { max-width: 46rem; margin: 0 auto; padding-block: 40px 72px; display: grid; gap: 36px; }
+  header { display: grid; gap: 10px; }
+  nav { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 0.95rem; }
+  nav a { color: var(--muted); text-decoration: none; }
+  nav a[aria-current="page"] { color: var(--fg); font-weight: 600; }
+  nav a:hover { color: var(--accent); }
+  .wordmark { display: flex; align-items: center; gap: 10px; font-weight: 700; color: var(--accent); }
+  .wordmark svg { width: 26px; height: 26px; flex: none; }
+  h1 { font-family: var(--font-display); font-size: clamp(2rem, 6vw, 2.8rem); line-height: 1.05; letter-spacing: -0.02em; margin: 0; text-wrap: balance; }
+  .effective { color: var(--muted); margin: 0; font-size: 0.95rem; }
+  /* Readout strip, like the tunnel's HUD */
+  .readouts {
+    background: var(--surface); border: 1px solid var(--line); border-radius: 14px;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+    overflow: hidden;
+  }
+  .readout { padding: 14px 18px; display: grid; gap: 2px; border-right: 1px solid var(--line); min-width: 0; }
+  .readout:last-child { border-right: none; }
+  .readout span { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+  .readout strong { font-family: var(--font-mono); font-size: 1.15rem; }
+  section { display: grid; gap: 10px; }
+  h2 { font-family: var(--font-display); font-size: 1.45rem; letter-spacing: -0.01em; margin: 8px 0 0; }
+  h3 { font-size: 1.1rem; margin: 6px 0 0; }
+  p, ul, ol { margin: 0; }
+  ul, ol { padding-left: 1.3em; display: grid; gap: 4px; }
+  a { color: var(--accent); }
+  kbd, code { font-family: var(--font-mono); font-size: 0.88em; background: var(--code-bg); border: 1px solid var(--line); border-radius: 6px; padding: 1px 6px; }
+  table { border-collapse: collapse; width: 100%; font-size: 0.97rem; }
+  th, td { text-align: left; vertical-align: top; padding: 8px 10px; border-bottom: 1px solid var(--line); }
+  th { color: var(--muted); font-weight: 600; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.06em; }
+  .table-wrap { overflow-x: auto; }
+  .note { background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--warm); border-radius: 10px; padding: 14px 16px; }
+  footer { color: var(--muted); font-size: 0.9rem; border-top: 1px solid var(--line); padding-top: 20px; display: flex; flex-wrap: wrap; gap: 6px 16px; }
+  footer a { color: var(--muted); }
+</style>
+</head>
+<body>
+<main class="page">
+  <header>
+    <div class="wordmark">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="15" fill="none" stroke="currentColor" stroke-width="2" opacity=".35"/><path d="M16 6a10 10 0 1 1-9.5 13.1M16 11a5 5 0 1 1-4.7 6.6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><circle cx="16" cy="16" r="1.8" fill="currentColor"/></svg>
+      Vortex Simulator
+    </div>
+    <nav aria-label="Documents"><a href="https://thenez.github.io/vortex-simulator/help/">Help</a><a href="https://thenez.github.io/vortex-simulator/terms/">Terms of Use</a><a href="https://thenez.github.io/vortex-simulator/privacy/" aria-current="page">Privacy Policy</a><a href="https://thenez.github.io/vortex-simulator/disclaimer/">Disclaimer</a></nav>
+    <h1>Privacy Policy</h1>
+    <p class="effective">Effective October 8, 2026</p>
+  </header>
+  <div class="readouts">
+    <div class="readout"><span>Data collected</span><strong>None</strong></div>
+    <div class="readout"><span>Network</span><strong>None</strong></div>
+    <div class="readout"><span>Accounts</span><strong>None</strong></div>
+    <div class="readout"><span>Tracking</span><strong>None</strong></div>
+  </div>
+  <section>
+    <h2>The short version</h2>
+    <p>Vortex Simulator runs entirely on your Mac. It has no accounts, no servers, no analytics and no advertising, and it doesn't connect to the internet. We, the people who make it, never receive anything about you or what you do in the app.</p>
+  </section>
+
+  <section>
+    <h2>What stays on your Mac</h2>
+    <p>The app keeps a few things on your Mac, and nowhere else:</p>
+    <ul>
+      <li><strong>Window size and position,</strong> saved by macOS so the window reopens where you left it.</li>
+      <li><strong>Your current settings while the app is open,</strong> such as the shape, Reynolds number and vehicle. They're held in memory and aren't saved when you quit.</li>
+    </ul>
+    <p>None of this is sent to us or to anyone else.</p>
+  </section>
+
+  <section>
+    <h2>Files you import</h2>
+    <p>When you import a 3D model or a DXF drawing, the app reads only the file you choose in the file panel or drop onto the tunnel. It turns the file into an outline in memory while the app is open. The file isn't uploaded, copied or changed, and the app forgets it when you quit.</p>
+  </section>
+
+  <section>
+    <h2>What we never collect</h2>
+    <p>The app doesn't collect your name, email address, location, contacts, files, device identifiers or usage, and it doesn't track you across other apps or websites. It makes no network connections, so there's nothing for it to send.</p>
+    <p>If you've chosen to share analytics with app developers in System Settings → Privacy &amp; Security → Analytics &amp; Improvements, Apple may send us anonymous crash reports and usage statistics. We use these only to fix bugs. You can turn this off at any time in the same place.</p>
+  </section>
+
+  <section>
+    <h2>Links and email</h2>
+    <p>The Help, Terms of Use, Privacy Policy and Disclaimer are built into the app and open without an internet connection. If you click a link to another website, it opens in your web browser, and that website's own privacy policy applies. If you email us, we receive what you send, including your email address. We use it only to answer you and delete it when it's no longer needed.</p>
+  </section>
+
+  <section>
+    <h2>Children</h2>
+    <p>Vortex Simulator is suitable for all ages, including students. Because it doesn't collect personal information from anyone, it doesn't collect any from children.</p>
+  </section>
+
+  <section>
+    <h2>Changes to this policy</h2>
+    <p>If we change how the app handles information, we'll update this page and the date at the top and describe the change in the app's release notes.</p>
+  </section>
+
+  <section>
+    <h2>Contact</h2>
+    <p>Questions about privacy? Email <a href="mailto:biomass-65-jumbo@icloud.com">biomass-65-jumbo@icloud.com</a>.</p>
+  </section>
+  <footer>
+    <span>© 2026 Roni Biran</span>
+    <a href="https://thenez.github.io/vortex-simulator/help/">Help</a>
+    <a href="https://thenez.github.io/vortex-simulator/terms/">Terms of Use</a>
+    <a href="https://thenez.github.io/vortex-simulator/disclaimer/">Disclaimer</a>
+    <a href="mailto:biomass-65-jumbo@icloud.com">biomass-65-jumbo@icloud.com</a>
+  </footer>
+</main>
+</body>
+</html>
