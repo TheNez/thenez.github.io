@@ -186,7 +186,7 @@
       Where Am I?
     </div>
     <h1>Privacy Policy</h1>
-    <p class="effective">Effective October 6, 2026</p>
+    <p class="effective">Effective October 29, 2026</p>
   </header>
 
   <div class="panel" role="group" aria-label="Summary">
@@ -217,21 +217,32 @@
   <main>
     <section>
       <h2>The short version</h2>
-      <p>Where Am I? shows your iPhone's GPS readings: your position, altitude, ground speed, heading and signal strength. Your location is used on your phone to show those readings and is never sent to us. The app doesn't connect to the internet at all: we don't run servers, we don't have accounts, and there's no analytics or advertising.</p>
+      <p>Where Am I? shows your iPhone's GPS readings: your position, altitude, ground speed, heading and signal strength. It can also record a trip you choose to record. Your location is used on your phone and is never sent to us: we don't run servers, we don't have accounts, and there's no analytics or advertising. The app uses the internet only to load Apple Maps when you view a saved trip, to show the name of the street and town you're in on CarPlay, and, if iCloud Drive is on, to keep your saved trips in your own iCloud account.</p>
     </section>
 
     <section>
       <h2>Your location</h2>
       <ul>
-        <li>The app reads your location only while it's open on screen.</li>
+        <li>The app reads your location only while it's open on screen, on your car's CarPlay screen, or while you're recording a trip.</li>
+        <li>While a trip is recording, the app keeps reading your location in the background until you tap <strong>Stop</strong>. iOS shows a blue location indicator while this happens.</li>
         <li>If you turn on <strong>Show on Lock Screen</strong> in the app's Settings, it keeps reading your location while it's in the background, to keep the Live Activity up to date. iOS shows a blue location indicator while this happens. Turn the setting off, or close the app, to stop it.</li>
-        <li>Your location is processed on your iPhone and is never sent to us or to any third party by the app.</li>
+        <li>Your location is processed on your iPhone and is never sent to us. The one exception to keeping it on the phone is the place name on CarPlay, below.</li>
       </ul>
     </section>
 
     <section>
       <h2>What's stored on your phone</h2>
-      <p>Where Am I? stores only your settings, such as units and coordinate format, on your iPhone. It doesn't keep a history of where you've been: your readings are shown and then discarded. Your settings are never sent to us or to any third party.</p>
+      <p>Where Am I? stores your settings, such as units and coordinate format, on your iPhone. It keeps a history of where you've been only when you record a trip: the trip's route (positions, altitude, speed and times) and its totals are saved until you tap <strong>Reset</strong> or delete the saved trip. If iCloud Drive is on, saved trips are stored in your iCloud account, so they come back if you reinstall the app or move to a new iPhone; otherwise they're kept on your iPhone. A trip still being recorded is always kept on your iPhone. Your iCloud data is held by Apple under <a href="https://www.apple.com/legal/privacy/">Apple's privacy policy</a>; we can't see it. Readings you don't record are shown and then discarded. Nothing the app stores is sent to us or to any third party.</p>
+    </section>
+
+    <section>
+      <h2>Maps</h2>
+      <p>When you open a saved trip while your phone is online, the app shows it on Apple Maps. To draw the map, your iPhone downloads map images of the trip's area from Apple, under <a href="https://www.apple.com/legal/privacy/data/en/apple-maps/">Apple's privacy policy for Maps</a>. Your route is drawn on your phone and isn't sent to Apple or to us. Offline, the map isn't shown.</p>
+    </section>
+
+    <section>
+      <h2>Place names on CarPlay</h2>
+      <p>On your car's CarPlay screen, the app shows the name of the street and town you're in. To get it, your iPhone sends your current position to Apple's geocoding service, at most once a minute while CarPlay is showing the app, under <a href="https://www.apple.com/legal/privacy/data/en/apple-maps/">Apple's privacy policy for Maps</a>. Nothing is sent when the app isn't on the CarPlay screen, and nothing is sent to us.</p>
     </section>
 
     <section>
@@ -258,7 +269,7 @@
             <tr><th scope="col">Permission</th><th scope="col">Why</th></tr>
           </thead>
           <tbody>
-            <tr><td>Location (While Using the App)</td><td>Required to show your position, altitude, speed and signal. Also used in the background only while <strong>Show on Lock Screen</strong> is on.</td></tr>
+            <tr><td>Location (While Using the App)</td><td>Required to show your position, altitude, speed and signal. Also used in the background only while a trip is recording or <strong>Show on Lock Screen</strong> is on.</td></tr>
             <tr><td>Add to Photos</td><td>Used only when you choose to save a snapshot to Photos.</td></tr>
           </tbody>
         </table>
@@ -268,7 +279,8 @@
     <section>
       <h2>Deleting your data</h2>
       <ul>
-        <li>Deleting the app removes everything it stored on your phone.</li>
+        <li>To delete a saved trip, swipe it left in the Trips list, or open it and choose <strong>Delete</strong>. <strong>Reset</strong> deletes the trip being recorded.</li>
+        <li>Deleting the app removes everything it stored on your phone. Trips saved to iCloud stay there, so they come back if you reinstall the app. To delete them, delete the trips in the app, or go to Settings → your name → iCloud → Manage Account Storage → Where Am I.</li>
         <li>Snapshots you saved or sent elsewhere stay there until you delete them.</li>
       </ul>
     </section>
