@@ -186,7 +186,7 @@
       Where Am I?
     </div>
     <h1>Support</h1>
-    <p class="effective">Effective October 29, 2026</p>
+    <p class="effective">Effective November 9, 2026</p>
   </header>
 
   <div class="panel" role="group" aria-label="At a glance">
@@ -217,7 +217,7 @@
   <main>
     <section>
       <h2>What it does</h2>
-      <p>Where Am I? shows your iPhone's live GPS readings: latitude and longitude, altitude above sea level, ground speed and heading, with a signal-strength antenna. It also records trips you can view on a map later, works on CarPlay, saves snapshots of your readings and can show your speed and altitude on the Lock Screen.</p>
+      <p>Where Am I? shows your iPhone's live GPS readings: latitude and longitude, altitude above sea level, ground speed and heading, with a signal-strength antenna. It also records trips you can chart, replay and share, works on CarPlay and with Siri, saves snapshots of your readings and can show your speed and altitude on the Lock Screen.</p>
     </section>
 
     <section>
@@ -235,7 +235,10 @@
       <ul>
         <li>Tap <strong>Start Recording</strong> on the main screen. The trip keeps recording with the phone locked or the app in the background, and carries on if the app is closed.</li>
         <li>Tap <strong>Stop</strong> to pause. Then <strong>Resume</strong> to carry on, <strong>Save</strong> to keep the trip, or <strong>Reset</strong> to throw it away.</li>
-        <li>Saved trips are in the <strong>Trips</strong> list (the map button, top left). Open one to see its distance, time, top speed and highest altitude.</li>
+        <li>Saved trips are in the <strong>Trips</strong> list (the map button, top left). Open one to see its distance, time, top and average speed, highest altitude, and total climb and descent.</li>
+        <li>Climb and descent come from your iPhone's barometer, which measures height changes more steadily than GPS. Allow <strong>Motion &amp; Fitness</strong> access when the app asks; without it, they come from GPS altitude. Trips recorded before version 1.2, and trips from other apps, use GPS altitude.</li>
+        <li>Below the totals, charts show the trip's altitude and speed along the way. Tap a chart to see the values at that spot, then <strong>Play from Here</strong> to replay the trip from there.</li>
+        <li>The layers button at the top left of the map switches between standard, satellite and hybrid maps, and can color the route by speed or altitude.</li>
         <li>Tap <strong>Play</strong> on a trip's map to watch it again: the map follows your car along the route and shows the time, speed, altitude and distance at each moment. It plays the whole trip in about a minute; tap the speed (for example <strong>20×</strong>) to change it, drag the slider to jump around, and tap <strong>Whole Route</strong> to see all of it. Stops are skipped.</li>
         <li>With iCloud Drive on, saved trips are kept in your iCloud account, so they come back if you delete and reinstall the app or set up a new iPhone with the same Apple Account. If you don't see them after reinstalling, give them a minute to download.</li>
         <li>The route is shown on the map only when your iPhone is online. In airplane mode, record as usual and look at the map after you land.</li>
@@ -243,8 +246,29 @@
     </section>
 
     <section>
+      <h2>Sharing trips</h2>
+      <ul>
+        <li>Open a saved trip and tap the share button to send it as a GPX file, by Messages, Mail, AirDrop or any other app.</li>
+        <li>When someone with Where Am I? opens the file, the trip is added to their Trips list with its map, charts and playback. Opening the same file twice doesn't add it twice.</li>
+        <li>GPX files from other GPS apps open too. To add one from Files, tap <strong>Import GPX</strong> at the top left of the Trips list.</li>
+        <li>A shared trip shows where and when you went, so send it only to people you trust.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Siri and Shortcuts</h2>
+      <ul>
+        <li>Ask Siri <em>"Where Am I readings"</em> or <em>"Get readings from Where Am I"</em> for your position, altitude and speed, even with the app closed.</li>
+        <li><em>"Start a trip in Where Am I"</em> and <em>"Stop recording in Where Am I"</em> start and stop recording. Starting a trip opens the app, because iOS starts GPS only while an app is open.</li>
+        <li>The same actions are in the Shortcuts app, so you can put them on the Action button or in Control Center.</li>
+        <li>Touch and hold the app icon for <strong>Start Trip</strong> and <strong>Trips</strong>.</li>
+      </ul>
+    </section>
+
+    <section>
       <h2>CarPlay</h2>
       <p>Connect your iPhone to CarPlay and open Where Am I on the car's screen to see speed, heading, altitude, position and the street and town you're in. While you record a trip, the street and town take the place of the coordinates, and the trip's distance, time and top speed show below. You can start, stop and save a trip from there too. Trips saved in the car are named after their start time; rename them on your iPhone.</p>
+      <p>To record every drive without touching anything, turn on <strong>Record trips automatically</strong> in the app's Settings, under CarPlay. A trip starts when Where Am I opens on the car's screen and is saved when your iPhone disconnects from the car. A trip shorter than 100 m isn't kept, and a trip you started yourself is left alone.</p>
     </section>
 
     <section>
